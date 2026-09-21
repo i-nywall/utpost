@@ -32,6 +32,7 @@ GitHub Flow, den är enkel att förstå, ser till att vi utgår från samma kod 
 - Om vi är klara på plats på tisdag, lämmna in tillsammans, annars välj ut en som kan lämna in på kvällen.
 - PR: ska klara CI, följ template och länka till issues.
 - PR: Vid Review lägg en kommentar på PR:et och be om ändringar eller förtydligande om nödvändigt.
+- PR: Den som approvar mergar. Ingen merge medans någon håller på att reviewa eller har bett om ändringar.
 - Börja och avsluta dagen med att reviewa öppna pull requests.
 - Skapa issues och milestone för checkpoints, dela upp i subissues om behövs.
 - Det du arbetar på måste ha en issue och du måste vara assigned till den. Skapa en issue om det behövs.
