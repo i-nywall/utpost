@@ -36,4 +36,3 @@ GitHub Flow, den är enkel att förstå, ser till att vi utgår från samma kod 
 - Börja och avsluta dagen med att reviewa öppna pull requests.
 - Skapa issues och milestone för checkpoints, dela upp i subissues om det behövs.
 - Det du arbetar på måste ha en issue och du måste vara assigned till den. Skapa en issue om det behövs.
-- scoped commits eller conventional commits
