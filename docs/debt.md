@@ -34,6 +34,6 @@
 | 32 | Hårdkodad konfiguration och JWT-hemlighet | `config.js` | Databasens URL, JWT-hemligheten, porten och upload-dir ligger direkt i koden. Framför allt kan hemligheter exponeras om koden delas. Dessa borde läsas från miljövariabler. | Hög |
 | 33 | Ohanterade fel loggas bara | `index.js` | unhandledRejection loggar felet men låter servern fortsätta. Vid kritiska fel kan servern fortsätta i ett felaktigt tillstånd. | Medel |
 | 34 | Bildfunktionen är inte färdig | `photos.js` | Koden använder dummy-pixels istället för riktig bilddata. Funktionen behöver byggas klart för att kunna hantera riktiga bilder. | Låg |
-
+| 35 | Profil hämtar alla turer och filtrerar i frontend | `Profile.jsx` | Alla turer hämtas från API:t och filtreras sedan i klienten baserat på användarens ID. Det innebär att onödigt mycket data kan skickas till klienten. Filtreringen bör istället göras i backend så att endast relevanta turer hämtas. | Medel |
 
 
