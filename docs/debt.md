@@ -25,14 +25,14 @@
 | 23 | Vissa komponenter använder inline styles | `Button.jsx` rad 2 `GuideCard.jsx` rad 4 | Det blir svårare att uppdatera styles när det inte är konsekvent vart det ska ligga | Låg |
 | 24 | Färger och storlekar använder inte css variabler | `style.css` | Detta gör det svårare att uppdatera färger och storlekar, utan en design system så är allt magic numbers. | Medel |
 | 25 | Knappar har `cursor:pointer` på sig| `style.css` rad 39-40 | `cursor:pointer` ska användas för att visa att något är en länk, knappar är inte länkar | Låg |
-| 26 | Lösenord sparas i klartext | auth.js | Lösenord sparas som plaintext:<lösenord>. Om någon kommer åt databasen kan de läsa alla lösenord. De borde hashats med bcrypt eller Argon2. | Hög |
+| 26 | Lösenord sparas i klartext | `auth.js` | Lösenord sparas som plaintext:<lösenord>. Om någon kommer åt databasen kan de läsa alla lösenord. De borde hashats med bcrypt eller Argon2. | Hög |
 | 27 | Risk för SQL-injection | `guides.js` | Användarens sökning läggs direkt in i SQL-frågan. Det kan göra att någon manipulerar frågan. Parametriserade queries borde användas. | Hög |
 | 28 | Registrering saknar validering | `utpost/api/src/routes/auth.js` | Det saknas kontroll av input, lösenordets styrka och om e-postadressen redan används. Det kan skapa felaktiga konton och problem med dubbletter. | Medel |
 | 29 | För många databasfrågor | `tours.js` | Extra frågor körs för varje tur för att hämta användare, guide, bilder och loggar. Det kan bli långsamt när det finns många turer. | Medel |
 | 30 | Turer kan raderas utan behörighetskontroll | `tours.js` | DELETE /api/tours/:id kontrollerar inte om användaren är inloggad eller äger turen. Det gör att någon kan radera andras turer. | Hög |
 | 31 | Bristande kontroll av token-format | `auth.js, requireUser` | header.replace('Bearer ', '') kräver en viss formatering. Headern och token borde kontrolleras tydligare så att felaktiga anrop hanteras korrekt. | Låg |
 | 32 | Hårdkodad konfiguration och JWT-hemlighet | `config.js` | Databasens URL, JWT-hemligheten, porten och upload-dir ligger direkt i koden. Framför allt kan hemligheter exponeras om koden delas. Dessa borde läsas från miljövariabler. | Hög |
-| 33 | Oh hanterade fel loggas bara | `index.js` | unhandledRejection loggar felet men låter servern fortsätta. Vid kritiska fel kan servern fortsätta i ett felaktigt tillstånd. | Medel |
+| 33 | Ohanterade fel loggas bara | `index.js` | unhandledRejection loggar felet men låter servern fortsätta. Vid kritiska fel kan servern fortsätta i ett felaktigt tillstånd. | Medel |
 | 34 | Bildfunktionen är inte färdig | `photos.js` | Koden använder dummy-pixels istället för riktig bilddata. Funktionen behöver byggas klart för att kunna hantera riktiga bilder. | Låg |
 
 
