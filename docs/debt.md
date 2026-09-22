@@ -25,7 +25,6 @@
 | 23 | Vissa komponenter använder inline styles | `Button.jsx` rad 2 `GuideCard.jsx` rad 4 | Det blir svårare att uppdatera styles när det inte är konsekvent vart det ska ligga | Låg |
 | 24 | Färger och storlekar använder inte css variabler | `style.css` | Detta gör det svårare att uppdatera färger och storlekar, utan en design system så är allt magic numbers. | Medel |
 | 25 | Knappar har `cursor:pointer` på sig| `style.css` rad 39-40 | `cursor:pointer` ska användas för att visa att något är en länk, knappar är inte länkar | Låg |
-
 | 26 | Lösenord sparas i klartext | auth.js | Lösenord sparas som plaintext:<lösenord>. Om någon kommer åt databasen kan de läsa alla lösenord. De borde hashats med bcrypt eller Argon2. | Hög |
 | 27 | Risk för SQL-injection | guides.js | Användarens sökning läggs direkt in i SQL-frågan. Det kan göra att någon manipulerar frågan. Parametriserade queries borde användas. | Hög |
 | 28 | Registrering saknar validering | utpost/api/src/routes/auth.js | Det saknas kontroll av input, lösenordets styrka och om e-postadressen redan används. Det kan skapa felaktiga konton och problem med dubbletter. | Medel |
