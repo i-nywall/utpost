@@ -2,15 +2,26 @@
   "name": "utpost",
   "private": true,
   "version": "1.4.2",
-  "workspaces": ["api", "web", "client"],
+  "workspaces": [
+    "api",
+    "web",
+    "client"
+  ],
   "scripts": {
     "dev": "concurrently -n api,web,client -c blue,green,red \"npm run dev --workspace=api\" \"npm run dev --workspace=web\" \"npm run dev --workspace=client\"",
     "dev:api": "npm run dev --workspace=api",
     "dev:web": "npm run dev --workspace=web",
     "dev:cli": "npm run dev --workspace=api",
-    "seed": "npm run seed --workspace=api"
+    "seed": "npm run seed --workspace=api",
+    "lint": "npm run lint --workspace=client",
+    "format": "npm run format --workspace=client",
+    "format:check": "npm run format:check --workspace=client",
+    "test": "npm run test --workspace=client",
+    "build": "npm run build --workspace=client"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9"
   }
 }
