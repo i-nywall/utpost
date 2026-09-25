@@ -23,5 +23,8 @@
     "concurrently": "^9.1.2",
     "eslint": "^10.11.0",
     "prettier": "^3.9.9"
+  },
+  "dependencies": {
+    "vite-plugin-inspect": "^12.0.2"
   }
 }
