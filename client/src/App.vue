@@ -1,11 +1,16 @@
 <script setup></script>
 
 <template>
-  <h1>You did it!</h1>
-  <p>
-    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-    documentation
-  </p>
+<div class="app"><header class="topbar">
+  <RouterLink to="/" class="logo">Utpost</RouterLink>
+  <nav>
+    <RouterLink :to="{ name: 'Guides' }">Guider</RouterLink>
+  </nav>
+</header>
+<main>
+  <RouterView />
+</main>
+<footer> Utpost vue port </footer></div>
 </template>
 
 <style scoped></style>
