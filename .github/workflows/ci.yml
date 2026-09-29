@@ -58,3 +58,4 @@ jobs:
         run: npm ci
 
       - name: Build app
+        run: npm run build
