@@ -6,6 +6,7 @@
       <RouterLink to="/" class="logo">Utpost</RouterLink>
       <nav>
         <RouterLink :to="{ name: 'Guides' }">Guider</RouterLink>
+        <RouterLink to="/turer">Turer</RouterLink>
       </nav>
     </header>
     <main>
