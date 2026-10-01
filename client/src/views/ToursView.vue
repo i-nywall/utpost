@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useFetch } from '@/composables/fetch.js'
-import { ref } from 'vue'
 
 const { data, error } = useFetch('http://localhost:4000/api/tours')
 
