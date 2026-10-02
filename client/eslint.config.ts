@@ -4,8 +4,7 @@ import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier/flat'
 
-// Vi är mitt i en migrering: både <script setup> och <script setup lang="ts"> ska få finnas.
-configureVueProject({ scriptLangs: ['ts', 'js'] })
+configureVueProject({ scriptLangs: ['ts'] })
 
 export default defineConfigWithVueTs(
   {
