@@ -1,7 +1,8 @@
-<script setup>
-defineProps({
-  guide: Object,
-})
+<script setup lang="ts">
+import type { Guide } from '@utpost/shared'
+defineProps<{
+  guide: Guide
+}>()
 </script>
 <template>
   <article class="card" :style="{ border: '1px solid #ddd', padding: '12px', borderRadius: '4px' }">
