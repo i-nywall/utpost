@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Guide } from '@utpost/shared'
 defineProps<{
-  guide: Guide,
+  guide: Guide
 }>()
 </script>
 <template>
