@@ -1,9 +1,9 @@
 <script setup>
 import { useRoute } from 'vue-router'
-import { useFetch } from '@/composables/fetch.js'
+import { useGet } from '@/composables/fetch.js'
 
 const { slug } = useRoute().params
-const { data, error } = useFetch(`http://localhost:4000/api/guides/${slug}`)
+const { data, error } = useGet(`/guides/${slug}`)
 </script>
 <template>
   <p v-if="error">Oops, something went wrong. {{ error.message || error }}</p>
