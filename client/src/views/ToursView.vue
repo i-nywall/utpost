@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useGet } from '@/composables/fetch.js'
+import type { TourWithRelations } from '@utpost/shared'
 
-const { data, error } = useGet('/tours')
+const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
 
-const formatKm = (meters) => Math.round(meters / 100) / 10
+const formatKm = (meters: number) => Math.round(meters / 100) / 10
 </script>
 
 <template>
@@ -37,6 +38,7 @@ const formatKm = (meters) => Math.round(meters / 100) / 10
         </tr>
       </tbody>
     </table>
-    <div v-else>Laddar turer...</div>
+    <div v-else-if="isLoading">Laddar turer...</div>
+    <div v-else>Oops! Ett fel inträffade</div>
   </div>
 </template>
