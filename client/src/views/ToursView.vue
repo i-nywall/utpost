@@ -1,8 +1,8 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { useFetch } from '@/composables/fetch.js'
+import { useGet } from '@/composables/fetch.js'
 
-const { data, error } = useFetch('http://localhost:4000/api/tours')
+const { data, error } = useGet('/tours')
 
 const formatKm = (meters) => Math.round(meters / 100) / 10
 </script>

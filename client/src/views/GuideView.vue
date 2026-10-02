@@ -1,10 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue'
 import GuideCard from '@/components/GuideCard.vue'
-import { useFetch } from '@/composables/fetch.js'
+import { useGet } from '@/composables/fetch.js'
 
 const searchTerm = ref('')
-const { data, error } = useFetch('http://localhost:4000/api/guides')
+const { data, error } = useGet('/guides')
 
 // Searching is done clientside in this excersize
 // TODO: do searching serverside
