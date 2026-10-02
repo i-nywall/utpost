@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useGet } from '@/composables/fetch.js'
-import type { Guide } from '@utpost/shared';
+import type { Guide } from '@utpost/shared'
 
 const { slug } = useRoute().params
 const { data, isLoading, error } = useGet<Guide>(`/guides/${slug}`)
