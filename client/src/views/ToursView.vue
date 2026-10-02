@@ -22,15 +22,18 @@ const formatKm = (meters) => Math.round(meters / 100) / 10
           <th>Bilder</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr v-for="t in data" :key="t.id">
+        <tr v-for="tour in data" :key="tour.id">
           <td>
-            <RouterLink :to="`/turer/${t.id}`">{{ t.title }}</RouterLink>
+            <RouterLink :to="{ name: 'TourDetail', params: { id: tour.id } }">
+              {{ tour.title }}
+            </RouterLink>
           </td>
-          <td>{{ t.user?.display_name }}</td>
-          <td>{{ t.guide ? t.guide.title : '-' }}</td>
-          <td>{{ formatKm(t.distance_m) }} km</td>
-          <td>{{ t.photos.length }}</td>
+          <td>{{ tour.user?.display_name }}</td>
+          <td>{{ tour.guide ? tour.guide.title : '-' }}</td>
+          <td>{{ formatKm(tour.distance_m) }} km</td>
+          <td>{{ tour.photos.length }}</td>
         </tr>
       </tbody>
     </table>

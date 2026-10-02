@@ -15,14 +15,14 @@ const router = createRouter({
       component: () => import('@/views/GuideDetail.vue'),
     },
     {
-      path: '/guides/:slug',
-      name: 'GuideDetail',
-      component: () => import('@/views/GuideDetail.vue'),
-    },
-    {
       path: '/turer',
       name: 'Tours',
       component: () => import('@/views/ToursView.vue'),
+    },
+    {
+      path: '/turer/:id',
+      name: 'TourDetail',
+      component: () => import('@/views/TourDetail.vue'),
     },
   ],
 })
