@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import GuideCard from '@/components/GuideCard.vue'
 import { useGet } from '@/composables/fetch.js'
+import type { Guide } from '@utpost/shared'
 
 const searchTerm = ref('')
-const { data, error } = useGet('/guides')
+const { data, isLoading, error } = useGet<Guide[]>('/guides')
 
 // Searching is done clientside in this excersize
 // TODO: do searching serverside
@@ -33,6 +34,7 @@ const filteredData = computed(() => {
         <GuideCard v-for="guide in filteredData" :key="guide.id" :guide="guide" />
       </div>
     </div>
-    <div v-else>Loading...</div>
+    <div v-else-if="isLoading">Laddar...</div>
+    <div v-else>Oops! Ett fel inträffade.</div>
   </div>
 </template>
