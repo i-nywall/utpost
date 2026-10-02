@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/turer/:id',
       name: 'TourDetail',
-      component: () => import('@/views/TourDetail.vue'),
+      redirect: '/',
     },
   ],
 })
