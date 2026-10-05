@@ -2,10 +2,9 @@
 import { RouterLink } from 'vue-router'
 import { useGet } from '@/composables/fetch.js'
 import type { TourWithRelations } from '@utpost/shared'
+import { formatKm } from '@/utils/format'
 
 const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
-
-const formatKm = (meters: number) => Math.round(meters / 100) / 10
 </script>
 
 <template>
