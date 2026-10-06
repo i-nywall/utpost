@@ -49,4 +49,14 @@ describe('GuidesView', () => {
     expect(screen.queryByText('Kebnekaise')).not.toBeInTheDocument()
     expect(screen.getByText('Resultat: 1 av 2')).toBeInTheDocument()
   })
+
+  it('searches by name', async () => {
+    const user = userEvent.setup()
+    renderView()
+    await screen.findByText('Kebnekaise')
+    await user.type(screen.getByLabelText('Sök:'), 'keb')
+    expect(screen.getByText('Kebnekaise')).toBeInTheDocument()
+    expect(screen.queryByText('Södra Myrleden')).not.toBeInTheDocument()
+    expect(screen.getByText('Resultat: 1 av 2')).toBeInTheDocument()
+  })
 })
