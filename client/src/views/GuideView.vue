@@ -23,7 +23,13 @@ const filteredData = computed(() => {
   <div>
     <h1>Guider</h1>
     <div class="searchrow">
-      <input type="text" v-model="searchTerm" placeholder="Sök på namn eller landskap" />
+      <label for="search">Sök: </label>
+      <input
+        type="text"
+        id="search"
+        v-model="searchTerm"
+        placeholder="Sök på namn eller landskap"
+      />
     </div>
 
     <div v-if="error">Oops! Ett fel inträffade: {{ error.message }}</div>
