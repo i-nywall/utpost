@@ -59,4 +59,12 @@ describe('GuidesView', () => {
     expect(screen.queryByText('Södra Myrleden')).not.toBeInTheDocument()
     expect(screen.getByText('Resultat: 1 av 2')).toBeInTheDocument()
   })
+
+  it('shows an error when API fails', async () => {
+    mockedGet.mockRejectedValue(new Error('API error'))
+    renderView()
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Oops! Ett fel inträffade: API error',
+    )
+  })
 })
