@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import { useGet } from '@/composables/fetch.js'
 import type { Guide } from '@utpost/shared'
 
-const { slug } = useRoute().params
-const { data, isLoading, error } = useGet<Guide>(`/guides/${slug}`)
+const props = defineProps<{
+  slug: string
+}>()
+const { data, isLoading, error } = useGet<Guide>(`/guides/${props.slug}`)
 </script>
 <template>
   <p v-if="error">Oops! Ett fel inträffade: {{ error.message || error }}</p>
