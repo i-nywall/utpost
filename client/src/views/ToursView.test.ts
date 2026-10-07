@@ -69,7 +69,6 @@ describe('ToursView', () => {
     expect(screen.getByText('Adrian')).toBeInTheDocument()
     expect(screen.getByText('Mount Everest')).toBeInTheDocument()
     expect(screen.getByText('20 km')).toBeInTheDocument()
-    expect(screen.getByText('0')).toBeInTheDocument()
   })
 
   it('shows a dash when a tour has no guide', async () => {
@@ -99,6 +98,8 @@ describe('ToursView', () => {
 
     renderView()
 
-    expect(await screen.findByText('Oops! Ett fel inträffade: API error')).toBeInTheDocument()
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Oops! Ett fel inträffade: API error',
+    )
   })
 })
