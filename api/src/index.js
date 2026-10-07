@@ -5,13 +5,24 @@ import { authRouter } from './routes/auth.js';
 import { guidesRouter } from './routes/guides.ts';
 import { toursRouter } from './routes/tours.js';
 import { photosRouter } from './routes/photos.js';
+import { mongo } from './db/mongo.js';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
-app.get('/api/health', (req, res) => res.json({ ok: true, version: '1.4.2' }));
+app.get('/api/health', async (req, res) => {
+
+  const check = async (fn) => fn().
+    then(() => "ok")
+    .catch((err) => `fel: ${err.message}`)
+  const mongodb = await check(async () => {
+    await mongo.connect()
+    await mongo.db().command({ping: 1})
+  })
+  return res.json({ ok: true, version: '1.4.2', mongodb })
+  });
 
 app.use('/api/auth', authRouter);
 app.use('/api/guides', guidesRouter);
