@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/vue'
 import type { Guide } from '@utpost/shared'
 import GuidesView from './GuideView.vue'
 import { get } from '../lib/api'
+import userEvent from '@testing-library/user-event'
 
 vi.mock('../lib/api', () => ({ get: vi.fn() }))
 const mockedGet = vi.mocked(get)
@@ -37,5 +38,33 @@ describe('GuidesView', () => {
     renderView()
     expect(await screen.findByText('Kebnekaise')).toBeInTheDocument()
     expect(screen.getByText('Resultat: 2 av 2')).toBeInTheDocument()
+  })
+
+  it('searches by region', async () => {
+    const user = userEvent.setup()
+    renderView()
+    await screen.findByText('Kebnekaise')
+    await user.type(screen.getByLabelText('Sök:'), 'små')
+    expect(screen.getByText('Södra Myrleden')).toBeInTheDocument()
+    expect(screen.queryByText('Kebnekaise')).not.toBeInTheDocument()
+    expect(screen.getByText('Resultat: 1 av 2')).toBeInTheDocument()
+  })
+
+  it('searches by name', async () => {
+    const user = userEvent.setup()
+    renderView()
+    await screen.findByText('Kebnekaise')
+    await user.type(screen.getByLabelText('Sök:'), 'keb')
+    expect(screen.getByText('Kebnekaise')).toBeInTheDocument()
+    expect(screen.queryByText('Södra Myrleden')).not.toBeInTheDocument()
+    expect(screen.getByText('Resultat: 1 av 2')).toBeInTheDocument()
+  })
+
+  it('shows an error when API fails', async () => {
+    mockedGet.mockRejectedValue(new Error('API error'))
+    renderView()
+    expect(await screen.findByRole('alert')).toHaveTextContent(
+      'Oops! Ett fel inträffade: API error',
+    )
   })
 })
