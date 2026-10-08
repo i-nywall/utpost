@@ -6,6 +6,7 @@ import { guidesRouter } from './routes/guides.ts';
 import { toursRouter } from './routes/tours.js';
 import { photosRouter } from './routes/photos.js';
 import { mongo } from './db/mongo.js';
+import { pool } from './db/client.js';
 
 const app = express();
 
@@ -17,11 +18,13 @@ app.get('/api/health', async (req, res) => {
   const check = async (fn) => fn().
     then(() => "ok")
     .catch((err) => `fel: ${err.message}`)
+  const postgres = await check(async () => pool.query('select 1'))
   const mongodb = await check(async () => {
     await mongo.connect()
     await mongo.db().command({ping: 1})
   })
-  return res.json({ ok: true, version: '1.4.2', mongodb })
+  const ok = postgres === "ok" && mongodb === "ok"
+  return res.status(ok ? 200 : 503).json({ ok, version: '1.4.2',postgres, mongodb })
   });
 
 app.use('/api/auth', authRouter);
