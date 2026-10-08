@@ -6,7 +6,7 @@ import { guidesRouter } from './routes/guides.ts';
 import { toursRouter } from './routes/tours.js';
 import { photosRouter } from './routes/photos.js';
 import { mongo } from './db/mongo.js';
-import { pool } from './db/client.js';
+import { postgresPool } from './db/postgres.js';
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.get('/api/health', async (req, res) => {
   const check = async (fn) => fn().
     then(() => "ok")
     .catch((err) => `fel: ${err.message}`)
-  const postgres = await check(async () => pool.query('select 1'))
+  const postgres = await check(async () => postgresPool.query('select 1'))
   const mongodb = await check(async () => {
     await mongo.connect()
     await mongo.db().command({ping: 1})
