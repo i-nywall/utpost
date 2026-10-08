@@ -73,6 +73,7 @@ npm run format
 | `api/`  | Express + Postgres (Drizzle) | Aktiv |
 | `web/`  | React + Vite | Legacy, fasas ut |
 | `client/`  | Vue + Vite | Aktiv (portas) |
+| `shared/` | Typ kontrakt för API och klient | Aktiv |
 
 ## Deploy
 
