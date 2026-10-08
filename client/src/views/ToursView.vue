@@ -11,7 +11,7 @@ const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
   <div>
     <h1>Turer</h1>
 
-    <div v-if="error">Oops! Ett fel inträffade: {{ error.message }}</div>
+    <div v-if="error" role="alert">Oops! Ett fel inträffade: {{ error.message }}</div>
     <table v-else-if="data" class="tours">
       <thead>
         <tr>
