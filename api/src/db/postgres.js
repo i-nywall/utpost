@@ -5,5 +5,5 @@ import * as schema from './schema.js';
 
 const { Pool } = pkg;
 
-export const pool = new Pool({ connectionString: config.databaseUrl });
-export const db = drizzle(pool, { schema });
+export const postgresPool = new Pool({ connectionString: config.postgresUrl });
+export const postgresDB = drizzle(postgresPool, { schema });
