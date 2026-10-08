@@ -8,9 +8,10 @@ const router = createRouter({
       path: '/',
       name: 'Guides',
       component: GuideView,
+      alias: '/guider',
     },
     {
-      path: '/guides/:slug',
+      path: '/guider/:slug',
       name: 'GuideDetail',
       props: true,
       component: () => import('@/views/GuideDetail.vue'),
