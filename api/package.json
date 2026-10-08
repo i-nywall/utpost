@@ -7,7 +7,8 @@
     "dev": "node --watch src/index.js",
     "start": "node src/index.js",
     "seed": "node src/db/seed.js",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "mongo:smoke": "node src/db/mongo-smoke.ts"
   },
   "dependencies": {
     "@utpost/shared": "^0.1.0",

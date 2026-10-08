@@ -14,6 +14,7 @@
     "dev:web": "npm run dev --workspace=web",
     "dev:cli": "npm run dev --workspace=api",
     "seed": "npm run seed --workspace=api",
+    "mongo:smoke": "npm run mongo:smoke --workspace=api",
     "typecheck": "npm run typecheck --workspace=api && npm run typecheck --workspace=client",
     "lint": "npm run lint --workspace=client",
     "format": "npm run format --workspace=client",
