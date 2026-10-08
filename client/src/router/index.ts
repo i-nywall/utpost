@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GuideView from '@/views/GuideView.vue'
+import GuidesView from '@/views/GuidesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,8 +7,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'Guides',
-      component: GuideView,
       alias: '/guider',
+      component: GuidesView,
     },
     {
       path: '/guider/:slug',
