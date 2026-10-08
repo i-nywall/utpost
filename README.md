@@ -53,6 +53,7 @@ Vi har ett workflow som körs på alla pull requests till main, se [pipeline](./
 Verifiera att allt fungerar lokalt innan du pushar:
 ```bash
 npm run lint && \
+npm run typecheck && \
 npm run format:check && \
 npm run test && \
 npm run build
