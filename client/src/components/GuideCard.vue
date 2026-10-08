@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import DOMPurify from 'dompurify'
 import type { Guide } from '@utpost/shared'
-defineProps<{
+
+const props = defineProps<{
   guide: Guide
 }>()
+
+const excerpt = computed(() => DOMPurify.sanitize(props.guide.body_html.slice(0, 180)))
 </script>
 <template>
   <article class="card" :style="{ border: '1px solid #ddd', padding: '12px', borderRadius: '4px' }">
@@ -12,6 +17,6 @@ defineProps<{
       }}</RouterLink>
     </h3>
     <p className="muted">{{ guide.region }} · {{ guide.difficulty }} · {{ guide.length_km }} km</p>
-    <div class="excerpt" v-html="guide.body_html.slice(0, 180)"></div>
+    <div class="excerpt" v-html="excerpt"></div>
   </article>
 </template>
