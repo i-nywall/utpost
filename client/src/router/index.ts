@@ -13,7 +13,7 @@ const router = createRouter({
       path: '/guides/:slug',
       name: 'GuideDetail',
       props: true,
-      component: () => import('@/views/GuideDetail.vue'),
+      component: () => import('@/views/GuideDetailView.vue'),
     },
     {
       path: '/turer',

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/vue'
 import type { Guide } from '@utpost/shared'
 import { get } from '../lib/api'
-import GuideDetail from './GuideDetail.vue'
+import GuideDetailView from './GuideDetailView.vue'
 
 vi.mock('../lib/api', () => ({ get: vi.fn() }))
 const mockedGet = vi.mocked(get)
@@ -23,7 +23,7 @@ const guide = (overrides: Partial<Guide>): Guide => ({
 })
 
 const renderView = (slug: string) =>
-  render(GuideDetail, {
+  render(GuideDetailView, {
     props: { slug },
     global: { stubs: { RouterLink: { template: '<a><slot /></a>' } } },
   })
