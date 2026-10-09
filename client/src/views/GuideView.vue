@@ -23,18 +23,23 @@ const filteredData = computed(() => {
   <div>
     <h1>Guider</h1>
     <div class="searchrow">
-      <input type="text" v-model="searchTerm" placeholder="Sök på namn eller landskap" />
+      <label for="search">Sök: </label>
+      <input
+        type="text"
+        id="search"
+        v-model="searchTerm"
+        placeholder="Sök på namn eller landskap"
+      />
     </div>
 
-    <div v-if="error">Oops! Ett fel inträffade: {{ error.message }}</div>
+    <div v-if="isLoading">Laddar...</div>
+    <div role="alert" v-else-if="error">Oops! Ett fel inträffade: {{ error.message }}</div>
     <div v-else-if="data">
-      <p>Resultat: {{ filteredData.length }} av {{ data?.length }}</p>
+      <p>Resultat: {{ filteredData.length }} av {{ data.length }}</p>
       <p v-if="filteredData.length === 0">Inga resultat hittades</p>
-      <div class="grid">
+      <div v-else class="grid">
         <GuideCard v-for="guide in filteredData" :key="guide.id" :guide="guide" />
       </div>
     </div>
-    <div v-else-if="isLoading">Laddar...</div>
-    <div v-else>Oops! Ett fel inträffade.</div>
   </div>
 </template>

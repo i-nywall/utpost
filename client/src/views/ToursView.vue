@@ -2,17 +2,16 @@
 import { RouterLink } from 'vue-router'
 import { useGet } from '@/composables/fetch.js'
 import type { TourWithRelations } from '@utpost/shared'
+import { formatKm } from '@/utils/format'
 
 const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
-
-const formatKm = (meters: number) => Math.round(meters / 100) / 10
 </script>
 
 <template>
   <div>
     <h1>Turer</h1>
 
-    <div v-if="error">Oops! Ett fel inträffade: {{ error.message }}</div>
+    <div v-if="error" role="alert">Oops! Ett fel inträffade: {{ error.message }}</div>
     <table v-else-if="data" class="tours">
       <thead>
         <tr>
