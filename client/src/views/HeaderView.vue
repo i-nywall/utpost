@@ -22,9 +22,7 @@ const logout = async () => {
       <template v-if="session.isLoggedIn">
         <RouterLink to="/profil">Min profil</RouterLink>
 
-        <button type="button" @click="logout">
-          Logga ut
-        </button>
+        <button type="button" @click="logout">Logga ut</button>
       </template>
 
       <RouterLink v-else to="/login">Logga in</RouterLink>

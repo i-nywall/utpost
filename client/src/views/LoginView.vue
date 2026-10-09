@@ -21,13 +21,7 @@ const submit = async () => {
   <form @submit.prevent="submit" class="login">
     <h1>Logga in</h1>
 
-    <input
-      v-model="email"
-      type="email"
-      placeholder="E-post"
-      autocomplete="username"
-      required
-    />
+    <input v-model="email" type="email" placeholder="E-post" autocomplete="username" required />
 
     <input
       v-model="password"
@@ -41,8 +35,6 @@ const submit = async () => {
       {{ session.error }}
     </p>
 
-    <button type="submit" class="button-blue">
-      Logga in
-    </button>
+    <button type="submit" class="button-blue">Logga in</button>
   </form>
 </template>

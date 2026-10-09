@@ -4,9 +4,7 @@ import { post } from '@/lib/api'
 
 type User = Record<string, unknown>
 
-type LoginResponse =
-  | { token: string; user: User; error?: never }
-  | { error: string }
+type LoginResponse = { token: string; user: User; error?: never } | { error: string }
 
 export const useSessionStore = defineStore('session', () => {
   const token = ref<string | null>(localStorage.getItem('token'))
