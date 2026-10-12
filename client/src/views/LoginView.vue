@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { useSessionStore } from '../stores/session'
+import { useSessionStore } from '@/stores/session'
 
-const email = ref('')
-const password = ref('')
+const form = reactive({
+  email: '',
+  password: '',
+})
+
 const router = useRouter()
 const session = useSessionStore()
 
 const submit = async () => {
-  const success = await session.login(email.value, password.value)
+  const success = await session.login(form.email, form.password)
 
   if (success) {
-    await router.push('/profil')
+    await router.push({ name: 'Profile' })
   }
 }
 </script>
@@ -21,17 +24,29 @@ const submit = async () => {
   <form @submit.prevent="submit" class="login">
     <h1>Logga in</h1>
 
-    <input v-model="email" type="email" placeholder="E-post" autocomplete="username" required />
-
+    <label for="login-email">E-post</label>
     <input
-      v-model="password"
+      id="login-email"
+      v-model="form.email"
+      name="email"
+      type="email"
+      placeholder="E-post"
+      autocomplete="username"
+      required
+    />
+
+    <label for="login-password">Lösenord</label>
+    <input
+      id="login-password"
+      v-model="form.password"
+      name="password"
       type="password"
       placeholder="Lösenord"
       autocomplete="current-password"
       required
     />
 
-    <p v-if="session.error" class="error">
+    <p v-if="session.error" class="error" role="alert">
       {{ session.error }}
     </p>
 

@@ -1,14 +1,11 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { post } from '@/lib/api'
-
-type User = Record<string, unknown>
-
-type LoginResponse = { token: string; user: User; error?: never } | { error: string }
+import type { LoginResponse, ApiError } from '@utpost/shared'
 
 export const useSessionStore = defineStore('session', () => {
   const token = ref<string | null>(localStorage.getItem('token'))
-  const user = ref<User | null>(null)
+  const user = ref<LoginResponse['user'] | null>(null)
   const error = ref<string | null>(null)
 
   const isLoggedIn = computed(() => token.value !== null)
@@ -29,13 +26,13 @@ export const useSessionStore = defineStore('session', () => {
     error.value = null
 
     try {
-      const data = await post<LoginResponse>('/auth/login', {
+      const data = await post<LoginResponse | ApiError>('/auth/login', {
         email,
         password,
       })
 
       if ('error' in data) {
-        error.value = data.error ?? 'Inloggningen misslyckades.'
+        error.value = data.error
         return false
       }
 

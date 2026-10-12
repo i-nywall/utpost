@@ -1,31 +1,26 @@
 <script setup lang="ts">
-import { RouterLink, useRouter } from 'vue-router'
-import { useSessionStore } from '../stores/session'
+import { RouterLink } from 'vue-router'
+import { useSessionStore } from '@/stores/session'
 
 const session = useSessionStore()
-const router = useRouter()
-
-const logout = async () => {
-  session.logout()
-  await router.push('/')
-}
 </script>
 
 <template>
   <header class="topbar">
-    <RouterLink to="/" class="logo">Utpost</RouterLink>
+    <RouterLink :to="{ name: 'Guides' }" class="logo">Utpost</RouterLink>
 
     <nav>
       <RouterLink :to="{ name: 'Guides' }">Guider</RouterLink>
       <RouterLink :to="{ name: 'Tours' }">Turer</RouterLink>
 
       <template v-if="session.isLoggedIn">
-        <RouterLink to="/profil">Min profil</RouterLink>
+        <RouterLink :to="{ name: 'Profile' }">Min profil</RouterLink>
 
-        <button type="button" @click="logout">Logga ut</button>
+        <!-- TODO: Flytta utloggningsknappen till profilsidan när den är implementerad. -->
+        <button type="button" @click="session.logout()">Logga ut</button>
       </template>
 
-      <RouterLink v-else to="/login">Logga in</RouterLink>
+      <RouterLink v-else :to="{ name: 'Login' }">Logga in</RouterLink>
     </nav>
   </header>
 </template>
