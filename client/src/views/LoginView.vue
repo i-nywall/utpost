@@ -46,10 +46,22 @@ const submit = async () => {
       required
     />
 
-    <p v-if="session.error" class="error" role="alert">
-      {{ session.error }}
-    </p>
+    <div class="login-error" aria-live="polite">
+      <p v-if="session.error" class="error">
+        {{ session.error }}
+      </p>
+    </div>
 
     <button type="submit" class="button-blue">Logga in</button>
   </form>
 </template>
+
+<style scoped>
+.login-error {
+  min-height: 3rem;
+}
+
+.login-error .error {
+  margin: 0;
+}
+</style>

@@ -1,3 +1,12 @@
+// API-kontraktet för Utpost – det som faktiskt går över tråden i dag.
+//
+// Fälten heter som kolumnerna i Postgres (snake_case) eftersom API:et svarar med
+// `select *`. Det är ett medvetet val för M2: kontraktet ska beskriva verkligheten,
+// inte önskan. Att döpa om fälten är ett eget beslut (och försvinner i praktiken
+// när API:et blir GraphQL).
+//
+// Regeln: ändras ett svar i api/ ändras typen här – i samma PR.
+
 export type Difficulty = 'lätt' | 'medel' | 'svår'
 
 export interface Guide {
@@ -52,7 +61,7 @@ export interface Tour {
   notes: string | null
 }
 
-/** GET /api/tours */
+/** GET /api/tours – varje tur med sina relationer inbakade */
 export interface TourWithRelations extends Tour {
   user: User
   guide: Guide | null
@@ -71,15 +80,15 @@ export interface LoginRequest {
   email: string
   password: string
 }
-
 export interface LoginResponse {
   token: string
-  // API:et skickar för närvarande även password_hash.
-  // TypeScript tar inte bort extra fält. Hanteras separat i M8.
+  // OBS: i dag skickar API:et hela databasraden, inklusive password_hash.
+  // Typen säger User – verkligheten säger mer. TypeScript tar inte bort fält,
+  // det här är en säkerhetsskuld (skuld 9) som lagas i M8, inte här.
   user: User
 }
 
-/** Felsvar från API:et */
+/** Felsvar från API:et: { error: '...' } */
 export interface ApiError {
   error: string
 }
