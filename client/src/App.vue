@@ -1,17 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
+import AppHeader from './components/AppHeader.vue'
+</script>
 
 <template>
   <div class="app">
-    <header class="topbar">
-      <RouterLink to="/" class="logo">Utpost</RouterLink>
-      <nav>
-        <RouterLink :to="{ name: 'Guides' }">Guider</RouterLink>
-        <RouterLink :to="{ name: 'Tours' }">Turer</RouterLink>
-      </nav>
-    </header>
+    <AppHeader />
+
     <main>
       <RouterView />
     </main>
+
     <footer>Utpost vue port</footer>
   </div>
 </template>

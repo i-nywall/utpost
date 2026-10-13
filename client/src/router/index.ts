@@ -25,6 +25,16 @@ const router = createRouter({
       name: 'TourDetail',
       redirect: '/',
     },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/views/LoginView.vue'),
+    },
+    {
+      path: '/profil',
+      name: 'Profile',
+      redirect: { name: 'Guides' },
+    },
   ],
 })
 
