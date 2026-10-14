@@ -14,17 +14,26 @@ const toursLatest = useGet<Tour[]>('/tours/latest')
     <section class="hero">
       <h1>Hitta din nästa tur</h1>
       <p>
-        {{ guidesAll.data.value?.length ?? 0 }} guider i {{ guidesRegions.data.value?.length ?? 0 }} landskap.
+        {{ guidesAll.data.value?.length ?? 0 }} guider i
+        {{ guidesRegions.data.value?.length ?? 0 }} landskap.
       </p>
     </section>
 
     <h2>Populärast just nu</h2>
-    <div class="grid">
+    <p v-if="guidesPopular.isLoading.value">Loading...</p>
+    <p v-else-if="guidesPopular.error.value" role="alert">
+      Oops! Ett fel inträffade: {{ guidesPopular.error.value.message }}
+    </p>
+    <div v-else-if="guidesPopular.data.value" class="grid">
       <GuideCard v-for="guide in guidesPopular.data.value" :key="guide.id" :guide="guide" />
     </div>
 
     <h2>Senaste turerna</h2>
-    <ul class="list">
+    <p v-if="toursLatest.isLoading.value">Loading...</p>
+    <p v-else-if="toursLatest.error.value" role="alert">
+      Oops! Ett fel inträffade: {{ toursLatest.error.value.message }}
+    </p>
+    <ul v-else-if="toursLatest.data.value" class="list">
       <li v-for="tour in toursLatest.data.value" :key="tour.id">
         <RouterLink :to="{ name: 'TourDetail', params: { id: tour.id } }">{{
           tour.title
@@ -36,7 +45,11 @@ const toursLatest = useGet<Tour[]>('/tours/latest')
     </ul>
 
     <h2>Alla guider</h2>
-    <div class="grid">
+    <p v-if="guidesAll.isLoading.value">Loading...</p>
+    <p v-else-if="guidesAll.error.value" role="alert">
+      Oops! Ett fel inträffade: {{ guidesAll.error.value.message }}
+    </p>
+    <div v-else-if="guidesAll.data.value" class="grid">
       <GuideCard v-for="guide in guidesAll.data.value" :key="guide.id" :guide="guide" />
     </div>
   </div>
