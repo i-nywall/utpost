@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { pool } from '../db/client.js';
+import { postgresPool } from '../db/postgres.js';
 
 export const photosRouter = Router();
 
@@ -49,7 +49,7 @@ photosRouter.post('/', async (req, res) => {
   });
   const ms = Date.now() - started;
 
-  const result = await pool.query(
+  const result = await postgresPool.query(
     'insert into photos (tour_id, filename, width, height) values ($1,$2,$3,$4) returning *',
     [tourId, filename, width, height],
   );
@@ -58,6 +58,6 @@ photosRouter.post('/', async (req, res) => {
 });
 
 photosRouter.get('/tour/:tourId', async (req, res) => {
-  const result = await pool.query('select * from photos where tour_id = $1', [req.params.tourId]);
+  const result = await postgresPool.query('select * from photos where tour_id = $1', [req.params.tourId]);
   res.json(result.rows);
 });

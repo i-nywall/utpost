@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { pool } from '../db/client.js';
+import { postgresPool } from '../db/postgres.js';
 import { sign } from '../lib/auth.js';
 
 export const authRouter = Router();
 
 authRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  const result = await pool.query('select * from users where email = $1', [email]);
+  const result = await postgresPool.query('select * from users where email = $1', [email]);
   const user = result.rows[0];
   if (!user) return res.status(401).json({ error: 'fel uppgifter' });
   if (user.password_hash !== `plaintext:${password}`) {
@@ -17,7 +17,7 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.post('/register', async (req, res) => {
   const { email, password, displayName } = req.body;
-  const result = await pool.query(
+  const result = await postgresPool.query(
     'insert into users (email, password_hash, display_name) values ($1,$2,$3) returning *',
     [email, `plaintext:${password}`, displayName],
   );

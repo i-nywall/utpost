@@ -1,4 +1,4 @@
-import { pool } from './client.js';
+import { postgresPool } from './postgres.js';
 import { createTables } from './migrate.js';
 
 const REGIONS = ['Jämtland', 'Dalarna', 'Lappland', 'Bohuslän', 'Småland', 'Södermanland', 'Härjedalen', 'Skåne'];
@@ -20,13 +20,13 @@ const bodyHtml = (title, region) => `
 
 const run = async () => {
   await createTables();
-  await pool.query('truncate photos, tour_logs, tours, guides, users restart identity');
+  await postgresPool.query('truncate photos, tour_logs, tours, guides, users restart identity');
 
   const userIds = [];
   for (let i = 0; i < 12; i++) {
     const name = `${pick(FIRST)} ${pick(LAST)}`;
     const email = `${name.toLowerCase().replace(' ', '.')}${i}@example.com`;
-    const res = await pool.query(
+    const res = await postgresPool.query(
       `insert into users (email, password_hash, display_name, role) values ($1,$2,$3,$4) returning id`,
       [email, 'plaintext:hemligt123', name, i === 0 ? 'editor' : 'member'],
     );
@@ -37,7 +37,7 @@ const run = async () => {
   for (let i = 0; i < 40; i++) {
     const region = pick(REGIONS);
     const title = `${pick(['Stora', 'Lilla', 'Norra', 'Södra', 'Gamla'])} ${pick(['Björnleden', 'Hällstigen', 'Sjörundan', 'Myrleden', 'Klippstigen'])} ${i + 1}`;
-    const res = await pool.query(
+    const res = await postgresPool.query(
       `insert into guides (slug, title, region, difficulty, length_km, body_html, hero_image, published, author_id)
        values ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
       [
@@ -52,7 +52,7 @@ const run = async () => {
   let logCount = 0;
   for (let i = 0; i < 200; i++) {
     const started = new Date(Date.now() - rnd(500) * 86400000);
-    const res = await pool.query(
+    const res = await postgresPool.query(
       `insert into tours (user_id, guide_id, title, started_at, distance_m, notes)
        values ($1,$2,$3,$4,$5,$6) returning id`,
       [
@@ -75,14 +75,14 @@ const run = async () => {
         100 + rnd(900), 90 + rnd(70),
       );
     }
-    await pool.query(
+    await postgresPool.query(
       `insert into tour_logs (tour_id, recorded_at, lat, lon, elevation_m, heart_rate) values ${values.join(',')}`,
       params,
     );
     logCount += points;
 
     for (let f = 0; f < rnd(4); f++) {
-      await pool.query(
+      await postgresPool.query(
         `insert into photos (tour_id, filename, width, height) values ($1,$2,$3,$4)`,
         [tourId, `tour-${tourId}-${f + 1}.jpg`, 4032, 3024],
       );
@@ -90,7 +90,7 @@ const run = async () => {
   }
 
   console.log(`Seed klar: 12 användare, 40 guider, 200 turer, ${logCount} loggpunkter.`);
-  await pool.end();
+  await postgresPool.end();
 };
 
 run().catch((err) => {
