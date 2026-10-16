@@ -64,20 +64,24 @@ LIMIT 1;"`|
 **Steg**
 <!-- what steps need to be taken for the data to be migrated -->
 <!-- makes it easier to write a migration script later -->
-1. [Steg 1]
-2. [Steg 2]
-3. [Steg 3]
+1. Hämta en Tour med Tourlogs från postgres.
+2. Skapa ett javascript object som matchar vår dokumentmodell för Tours
+3. Skriv in databasen
+4. Gör det för alla Tours.
+5. Efter verifiering, ta bort de tabeller ur postgres databsen som inte behövs längre.
 
 **Verifiering**
 <!-- how we verify the migration was successful -->
 
-- [Kontroll 1: ]
-- [Kontroll 2: ]
-- [Kontroll 3: ]
+1. Hämta en Tour med Tourlogs ifrån postgres
+2. Hämta en Tour ifrån Mongo med samma TourId
+3. Jämför datan med ett test av något slag.
+4. Om vi har samma data i båda är migreringen lyckad.
 
 **Vad händer med `tour_logs`**
 
 <!-- not sure what this means, maybe because it would become embedded -->
+Tour logs och Tours behövs inte i Postgres längre, så de tabellerna raderas.
 
 ## Alternativ vi jämförde
 
