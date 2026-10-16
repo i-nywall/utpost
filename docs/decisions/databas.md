@@ -64,10 +64,21 @@ LIMIT 1;"`|
 
 ## Alternativ vi jämförde
 
+**Allt i Postgres:** Ha kvar allt i postgres, fortsätta utveckla appen med en databas.
+
+**Allt i MongoDB:** Migrera allt till MongoDB, ta bort postgres helt ifrån appen.
 <!-- i assume this is referring to going all in on mongo / staying on postgres -->
+
+**Postgres och MongoDB:** Två databaser, migrera det som vi anser passar bättre i en dokumentdatabas till MongoDB.
 
 ## Konsekvenser
 <!-- what are the consequences of our specific decision compared to the alternatives -->
 <!-- presumably we've covered the positives earlier so only negative consequences here i think.-->
+
+Vi har valt att använda både Postgres MongoDB.
+Vi måste då ha hand om två databaser, det blir en extra container och mer arbete att få igång och underhålla miljön.
+Vi förlorar direkt relation från användare till Tour och måste se till att det hålls trots detta.
+Vi kan optimera resurshantering genom att placera datta i den databas som som datan passar bäst i.
+
 ## Skrivet och signerat
 <!-- just our names -->
