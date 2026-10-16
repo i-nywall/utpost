@@ -1,6 +1,12 @@
 import {
-  pgTable, serial, text, integer, boolean, timestamp, doublePrecision,
-} from 'drizzle-orm/pg-core';
+  pgTable,
+  serial,
+  text,
+  integer,
+  boolean,
+  timestamp,
+  doublePrecision,
+} from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
@@ -9,7 +15,7 @@ export const users = pgTable('users', {
   displayName: text('display_name').notNull(),
   role: text('role').notNull().default('member'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-});
+})
 
 export const guides = pgTable('guides', {
   id: serial('id').primaryKey(),
@@ -24,7 +30,7 @@ export const guides = pgTable('guides', {
   published: boolean('published').notNull().default(true),
   authorId: integer('author_id'),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
-});
+})
 
 export const tours = pgTable('tours', {
   id: serial('id').primaryKey(),
@@ -34,7 +40,7 @@ export const tours = pgTable('tours', {
   startedAt: timestamp('started_at').notNull(),
   distanceM: integer('distance_m').notNull(),
   notes: text('notes'),
-});
+})
 
 // En rad per mätpunkt. Växer med ca 300 rader per tur.
 export const tourLogs = pgTable('tour_logs', {
@@ -46,7 +52,7 @@ export const tourLogs = pgTable('tour_logs', {
   elevationM: integer('elevation_m'),
   heartRate: integer('heart_rate'),
   note: text('note'),
-});
+})
 
 export const photos = pgTable('photos', {
   id: serial('id').primaryKey(),
@@ -55,4 +61,4 @@ export const photos = pgTable('photos', {
   width: integer('width').notNull(),
   height: integer('height').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-});
+})
