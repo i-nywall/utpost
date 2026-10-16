@@ -2,7 +2,7 @@
 
 ## Datum
 
-YYYY-MM-DD
+2026-10-16
 
 ## Beslut
 
@@ -103,3 +103,4 @@ Vi kan optimera resurshantering genom att placera datta i den databas som som da
 
 ## Skrivet och signerat
 <!-- just our names -->
+Isak, Adrian, Daniel
