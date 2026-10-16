@@ -23,10 +23,27 @@ LIMIT 1;"`|
 
 <!-- json sketch from #66  -->
 ```json
-{
-  "id": "...",
-  "field": "..."
-}
+  {
+    tour_id: 1, // kept until migration is done
+    user_id: 1,
+    guide_id: 1,
+    title: "Hello tour",
+    started_at: 1792155313,
+    distance_m: 1000,
+    notes: "A note",
+    logs: [
+      {
+        timestamp: 1792155313,
+        lat: 58.17367817386448,
+        lon: 15.33418779535307,
+        elevation_m: 50,
+        heart_rate 100,
+        note: "note for this log"
+      }
+      //...
+    ]
+    stats: { logPoints: 300 },
+  }
 ```
 
 ## Vad som stannar i Postgres och varför
