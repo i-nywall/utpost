@@ -33,7 +33,11 @@ LIMIT 1;"`|
 <!-- a table might be good here too -->
 | Tabell | Stannar i Postgres? | Motivering |
 |---|---|---|
-| X | Y | Z |
+| Users | Ja | Användare har ofta relationer till annat i databasen, då passar en relationsdatabas som Postgres bra. |
+| Guides | Ja | Vi ser ingen fördel att flytta till mongo, fördel med att ha kvar i Postgres är att det är enkelt att ha relationer till användare. |
+| Tours | Nej | Vi flyttar Tour logs till mongo och eftersom ingen hämtar tour logs utan tours så slår vi ihop dem. |
+| Tour logs | Nej | De tar upp väldigt mycket rader i databasen, vi hämtar dem alltid som grupp, och ihop med Tours. Detta gör att det passar bättre som ett dokument i mongo. |
+| Photos | Ja | Det finns nackdelar med att embedda i Tours i mongo, om vi har det separat i Postgres blir det enklare att bygga viss funktionalitet.  |
 
 ## Migrering i M5
 
