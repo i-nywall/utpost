@@ -18,7 +18,7 @@ Uppmätta siffror (mätmetod och datum anges):
 | Största turen | id:65 med 39 loggar | i containern `psql -U "$POSTGRES_USER" -d "$POSTGRES_DB" -c "SELECT tour_id, COUNT(*) AS antal_loggar FROM tour_logs GROUP BY tour_id ORDER BY antal_loggar DESC
 LIMIT 1;"`|
 
-<!-- how did this influence our decision -->
+Turerna har många mätpunkter (5922 rader i `tour_logs` för 200 turer) och de hämtas alltid tillsammans med turen. Det ger många rader och tunga svar (`/api/tours` ≈ 285 kB). Som ett dokument per tur läses turen med sina loggar i en enda läsning.
 
 ## Dokumentmodellen
 
