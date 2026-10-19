@@ -5,6 +5,7 @@
 2026-10-16
 
 ## Beslut
+Vi använder både Postgres och MongoDB. Turer flyttas till MongoDB som ett dokument per tur, med mätpunkterna (`logs`) inbäddade. Users, guides och photos stannar i Postgres.
 
 ## Bakgrund
 Uppmätta siffror (mätmetod och datum anges):
