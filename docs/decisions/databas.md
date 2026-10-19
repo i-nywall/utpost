@@ -99,7 +99,7 @@ Tour logs och Tours behövs inte i Postgres längre, så de tabellerna raderas.
 
 Vi har valt att använda både Postgres MongoDB.
 Vi måste då ha hand om två databaser, det blir en extra container och mer arbete att få igång och underhålla miljön.
-Vi förlorar direkt relation från användare till Tour och måste se till att det hålls trots detta.
+Vi förlorar direkt relation från användare till Tour och måste se till att det hålls trots detta. Samma sak gäller photos: de stannar i Postgres men hör till turer i MongoDB, så kopplingen via `tour_id` måste hållas i koden.
 Vi kan optimera resurshantering genom att placera datta i den databas som som datan passar bäst i.
 
 ## Skrivet och signerat
