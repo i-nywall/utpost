@@ -7,7 +7,7 @@ const session = useSessionStore()
 
 <template>
   <header class="topbar">
-    <RouterLink :to="{ name: 'Guides' }" class="logo">Utpost</RouterLink>
+    <RouterLink :to="{ name: 'Home' }" class="logo">Utpost</RouterLink>
 
     <nav>
       <RouterLink :to="{ name: 'Guides' }">Guider</RouterLink>
