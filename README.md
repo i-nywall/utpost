@@ -4,53 +4,70 @@ Plattform för friluftsdestinationer. Redaktionella guider, användarnas egna tu
 
 ## Kom igång
 
-### Förutsättningar
- - Node 22+
- - NPM
- - [Docker](#docker) - kör databasen lokalt
+Det finns två sätt att köra Utpost, båda med Docker Compose:
 
-### Setup
-```bash
-npm ci
-```
+- [Sätt 1: Allt i Docker](#sätt-1-allt-i-docker) – fungerar överallt, bara Docker behövs.
+- [Sätt 2: Utveckling med hot reload](#sätt-2-utveckling-med-hot-reload) – databaserna i Docker, appen på din dator för snabb utveckling.
 
-Starta databasen (se [Docker](#docker) om du inte har Docker installerat):
+### Sätt 1: Allt i Docker
 
-```bash
-docker compose -f docker-compose.dev.yml up -d
-```
+#### Krav
 
-Fyll databasen med testdata:
+- [Docker](#docker)
+
+Ingen Node behövs på datorn – Node-versionen är låst i imagerna.
 
 ```bash
-npm run seed
+docker compose up --build -d
+docker compose exec api npm run seed
 ```
+
+| Tjänst | URL                                |
+| ------ | ---------------------------------- |
+| Vue    | `http://localhost:8080`            |
+| API    | `http://localhost:4000/api/health` |
+
+Stäng ner med `docker compose down`. `docker compose down -v` raderar även databaserna.
 
 > [!NOTE]
-> Seeding är inte deterministic och det finns inget designerad test-konto just nu.
+> Ändringar i koden syns inte förrän du bygger om: `docker compose up --build -d`.
 
+### Sätt 2: Utveckling med hot reload
 
-### Utveckling
+#### Krav
 
-Se till att databasen är igång innan du startar API:et.
+- [Docker](#docker)
+- Node 22.18 eller nyare
 
-För att starta allt, API, Vue appen, och React appen:
 ```bash
+docker compose up -d postgres mongo
+npm ci
+npm run seed
 npm run dev
 ```
-| Tjänster | URL | status |
-| --- | --- | --- |
-| Vue | `http://localhost:3001` | Aktiv (portas) |
-| React | `http://localhost:3000` | legacy, fasas ut|
-| API | `http://localhost:4000` | Aktiv |
+
+`npm run dev` startar API:et, Vue-appen och React-appen:
+
+| Tjänst | URL                     | Status           |
+| ------ | ----------------------- | ---------------- |
+| Vue    | `http://localhost:3001` | Aktiv (portas)   |
+| React  | `http://localhost:3000` | Legacy, fasas ut |
+| API    | `http://localhost:4000` | Aktiv            |
+
+Postgres nås på `localhost:5433` och MongoDB på `localhost:27017`.
+
+> [!NOTE]
+> Seeding är inte deterministisk och det finns inget designerat testkonto just nu.
 
 > [!IMPORTANT]
 > React-versionen är read-only och accepterar inte ändringar. All ny utveckling sker i Vue-appen.
 
 ### Verifikation
+
 Vi har ett workflow som körs på alla pull requests till main, se [pipeline](./docs/pipeline.md).
 
 Verifiera att allt fungerar lokalt innan du pushar:
+
 ```bash
 npm run lint && \
 npm run typecheck && \
@@ -58,31 +75,35 @@ npm run format:check && \
 npm run test && \
 npm run build
 ```
+
 Du kan formattera koden med:
+
 ```bash
 npm run format
 ```
+
 > [!NOTE]
 > Pipelinen kontrollerar bara Vue-porten just nu. Ändringar i React-appen kommer nekas oavsett. Undvik att ändra API:et innan pipelinen kontrollerar det också.
 
-
 ## Struktur
 
-| Katalog | Stack | Status |
-|--------|-------|--------|
-| `api/`  | Express + Postgres (Drizzle) | Aktiv |
-| `web/`  | React + Vite | Legacy, fasas ut |
-| `client/`  | Vue + Vite | Aktiv (portas) |
-| `shared/` | Typ kontrakt för API och klient | Aktiv |
+| Katalog   | Stack                           | Status           |
+| --------- | ------------------------------- | ---------------- |
+| `api/`    | Express + Postgres (Drizzle)    | Aktiv            |
+| `web/`    | React + Vite                    | Legacy, fasas ut |
+| `client/` | Vue + Vite                      | Aktiv (portas)   |
+| `shared/` | Typ kontrakt för API och klient | Aktiv            |
 
 ## Deploy
 
 Vi har just nu inget deployat och inget flöde för att distribuera appen.
 
 ## Branchstrategi
+
 GitHub Flow, den är enkel att förstå, ser till att vi utgår från samma kod och minimerar branch-relaterat arbete. Det här är bra för ett litet team som levererar konstant. GitHub Flow är flexibel och vi kan öka antalet deploy-miljöer vid behov utan mer komplexitet i arbetsflödet.
 
 ## Working agreement
+
 - Om du behöver hjälp, hamnar efter eller missar ett möte, kontakta gruppmedlemmarna.
 - Koddiskussion i GitHub, övrig kontakt och planering i Discord.
 - Träffas på skolan måndag och tisdag för att bli klara med veckans uppgifter.
@@ -95,7 +116,8 @@ GitHub Flow, den är enkel att förstå, ser till att vi utgår från samma kod 
 - Det du arbetar på måste ha en issue och du måste vara assigned till den. Skapa en issue om det behövs.
 
 ## Docker
-Appen behöver docker för att köra databasen lokalt.
+
+Appen behöver Docker för att köra databaserna, och i sätt 1 hela appen.
 
 Du behöver antingen:
 
