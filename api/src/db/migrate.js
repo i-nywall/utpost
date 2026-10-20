@@ -1,5 +1,5 @@
 // Vi kör inga migrations-verktyg. Den här filen skapar tabellerna.
-import { postgresPool } from './postgres.js';
+import { postgresPool } from './postgres.js'
 
 export const createTables = async () => {
   await postgresPool.query(`
@@ -51,5 +51,5 @@ export const createTables = async () => {
       height integer not null,
       created_at timestamp not null default now()
     );
-  `);
-};
+  `)
+}

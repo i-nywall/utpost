@@ -1,19 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GuideView from '@/views/GuideView.vue'
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Guides',
-      component: GuideView,
+      name: 'Home',
+      component: () => import('@/views/HomeView.vue'),
     },
     {
-      path: '/guides/:slug',
+      path: '/guider',
+      name: 'Guides',
+      component: () => import('@/views/GuidesView.vue'),
+    },
+    {
+      path: '/guider/:slug',
       name: 'GuideDetail',
       props: true,
-      component: () => import('@/views/GuideDetail.vue'),
+      component: () => import('@/views/GuideDetailView.vue'),
     },
     {
       path: '/turer',
