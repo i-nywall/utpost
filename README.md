@@ -4,11 +4,18 @@ Plattform för friluftsdestinationer. Redaktionella guider, användarnas egna tu
 
 ## Kom igång
 
-Det finns två sätt att köra Utpost. Båda använder `compose.yaml`.
+Det finns två sätt att köra Utpost, båda med Docker Compose:
 
-### Sätt 1 – Allt i Docker
+- [Sätt 1: Allt i Docker](#sätt-1-allt-i-docker) – fungerar överallt, bara Docker behövs.
+- [Sätt 2: Utveckling med hot reload](#sätt-2-utveckling-med-hot-reload) – databaserna i Docker, appen på din dator för snabb utveckling.
 
-Kräver bara [Docker](#docker). Ingen Node behövs på datorn – Node-versionen är låst i imagerna.
+### Sätt 1: Allt i Docker
+
+#### Krav
+
+- [Docker](#docker)
+
+Ingen Node behövs på datorn – Node-versionen är låst i imagerna.
 
 ```bash
 docker compose up --build -d
@@ -25,9 +32,12 @@ Stäng ner med `docker compose down`. `docker compose down -v` raderar även dat
 > [!NOTE]
 > Ändringar i koden syns inte förrän du bygger om: `docker compose up --build -d`.
 
-### Sätt 2 – Databaserna i Docker, appen på din dator
+### Sätt 2: Utveckling med hot reload
 
-För utveckling med hot reload. Kräver [Docker](#docker) och Node 22.18 eller nyare.
+#### Krav
+
+- [Docker](#docker)
+- Node 22.18 eller nyare
 
 ```bash
 docker compose up -d postgres mongo
