@@ -7,7 +7,10 @@
     "dev": "node --watch src/index.js",
     "start": "node src/index.js",
     "seed": "node src/db/seed.js",
-    "typecheck": "tsc --noEmit -p tsconfig.json"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "mongo:smoke": "node src/db/mongo-smoke.ts",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/"
   },
   "dependencies": {
     "@utpost/shared": "^0.1.0",
@@ -15,6 +18,7 @@
     "drizzle-orm": "^0.36.4",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.7.0",
     "pg": "^8.13.1"
   },
   "devDependencies": {
@@ -23,6 +27,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.20.4",
     "@types/pg": "^8.23.1",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.0"
   }
 }

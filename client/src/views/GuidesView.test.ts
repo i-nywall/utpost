@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/vue'
 import type { Guide } from '@utpost/shared'
-import GuidesView from './GuideView.vue'
+import GuidesView from './GuidesView.vue'
 import { get } from '../lib/api'
 import userEvent from '@testing-library/user-event'
 

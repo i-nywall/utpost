@@ -1,8 +1,8 @@
 // Vi kör inga migrations-verktyg. Den här filen skapar tabellerna.
-import { pool } from './client.js';
+import { postgresPool } from './postgres.js'
 
 export const createTables = async () => {
-  await pool.query(`
+  await postgresPool.query(`
     create table if not exists users (
       id serial primary key,
       email text not null,
@@ -51,5 +51,5 @@ export const createTables = async () => {
       height integer not null,
       created_at timestamp not null default now()
     );
-  `);
-};
+  `)
+}
