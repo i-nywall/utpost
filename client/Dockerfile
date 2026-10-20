@@ -5,19 +5,17 @@ WORKDIR /app
 RUN npm install --global npm@11.11.0
 
 COPY package.json package-lock.json ./
-COPY api/package.json ./api/package.json
-COPY web/package.json ./web/package.json
 COPY client/package.json ./client/package.json
 COPY shared/package.json ./shared/package.json
 
 RUN npm ci
 
-COPY . .
+COPY shared/ shared/
+COPY client/ client/
 
 RUN npm run build --workspace=client
 
-FROM build AS preview
 
-EXPOSE 4173
+EXPOSE 3001
 
-CMD ["npm", "run", "preview", "--workspace=client", "--", "--host", "0.0.0.0", "--port", "4173", "--strictPort"]
+CMD ["npm", "run", "preview", "--workspace=client", "--", "--host", "0.0.0.0", "--port", "3001", "--strictPort"]
