@@ -8,7 +8,7 @@ COPY package.json package-lock.json ./
 COPY client/package.json ./client/package.json
 COPY shared/package.json ./shared/package.json
 
-RUN npm ci
+RUN npm ci --workspace=client
 
 COPY shared/ shared/
 COPY client/ client/
