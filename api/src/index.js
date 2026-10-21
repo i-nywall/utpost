@@ -7,10 +7,15 @@ import { toursRouter } from './routes/tours.js'
 import { photosRouter } from './routes/photos.js'
 import { mongo } from './db/mongo.js'
 import { postgresPool } from './db/postgres.js'
+import { yoga } from './graphql/server.ts'
 
 const app = express()
 
 app.use(cors())
+
+// Graphql needs to go before express,
+app.use(yoga.graphqlEndpoint, yoga)
+
 app.use(express.json({ limit: '50mb' }))
 
 app.get('/api/health', async (req, res) => {
