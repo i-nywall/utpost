@@ -2,6 +2,7 @@ import type { TourLog, TourWithRelations } from '@utpost/shared'
 import { postgresPool } from './postgres.js'
 import { mongo, toursCollection } from './mongo.js'
 import { BSON } from 'mongodb'
+import type { timestamp } from 'drizzle-orm/pg-core'
 
 const tourId = Number(process.argv[2] ?? 1)
 const run = async () => {
@@ -19,20 +20,21 @@ const run = async () => {
   // undecided if we are going to use this structure, just copying it from the demo
   const tourDocument = {
     tour_id: tour.id, // id from postgres, kept until migration is done just to be safe
+    user_id: tour.user_id,
     guide_id: tour.guide_id,
     title: tour.title,
     started_at: tour.started_at,
     distance_m: tour.distance_m,
     notes: tour.notes,
     logs: logs.map((log) => ({
-      t: log.recorded_at,
+      timestamp: log.recorded_at,
       lat: log.lat,
       lon: log.lon,
       elevation_m: log.elevation_m,
       heart_rate: log.heart_rate,
       note: log.note,
     })),
-    stats: { points: logs.length },
+    stats: { logPoints: logs.length },
   }
 
   await mongo.connect()
