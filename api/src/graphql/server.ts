@@ -1,5 +1,6 @@
-import { createYoga } from 'graphql-yoga'
-import { schema } from './schema.ts'
+import { createSchema, createYoga } from 'graphql-yoga'
+import { typeDefs } from './schema.ts'
+
 export const yoga = createYoga({
-  schema,
+  schema: createSchema({ typeDefs }),
 })
