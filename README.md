@@ -29,6 +29,17 @@ docker compose exec api npm run seed
 
 Stäng ner med `docker compose down`. `docker compose down -v` raderar även databaserna.
 
+#### Klientimagerns storlek
+
+Efter att klienten byggdes om med en multi-stage Dockerfile och Nginx minskade imagen:
+
+| Mätning | Före | Efter |
+| --- | ---: | ---: |
+| Disk usage | 731 MB | 93,9 MB |
+| Content size | 180 MB | 26,4 MB |
+
+Det motsvarar cirka 87 % mindre disk usage och 85 % mindre content size. Mätt med `docker image ls utpost-client`.
+
 > [!NOTE]
 > Ändringar i koden syns inte förrän du bygger om: `docker compose up --build -d`.
 
