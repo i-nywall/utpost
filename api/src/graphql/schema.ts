@@ -1,0 +1,55 @@
+export const typeDefs = /* Graphql */ `
+  type Guide {
+    id: ID!
+    slug: String!
+    title: String!
+    region: String!
+    difficulty: String!
+    lengthKm: Float!
+    bodyHtml: String!
+    heroImage: String
+    published: Boolean!
+    updatedAt: String!
+  }
+
+  type User {
+    id: ID!
+    displayName: String!
+  }
+
+  type Photo {
+    id: ID!
+    filename: String!
+    width: Int!
+    height: Int!
+  }
+
+  type LogPoint {
+    recordedAt: String!
+    lat: Float!
+    lon: Float!
+    elevationM: Int
+    heartRate: Int
+  }
+
+  type Tour {
+    id: ID!
+    title: String!
+    startedAt: String!
+    disanceM: Int!
+    notes: String
+    user: User!
+    guide: Guide
+    photos: [Photo!]!
+    logs: [LogPoint!]!
+  }
+
+  type Query {
+    guides: [Guide!]!
+    popularGuides(limit: Int = 6): [Guide!]!
+    guide(slug: String!): Guide
+    regions: [String!]!
+    tours(limit: Int = 50): [Tour!]!
+    tour(id: ID!): Tour
+  }
+  `
