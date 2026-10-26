@@ -16,6 +16,11 @@ COPY client/ client/
 RUN npm run build --workspace=client
 
 
-EXPOSE 3001
+FROM nginx:alpine AS runtime
 
-CMD ["npm", "run", "preview", "--workspace=client", "--", "--host", "0.0.0.0", "--port", "3001", "--strictPort"]
+COPY client/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/client/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
