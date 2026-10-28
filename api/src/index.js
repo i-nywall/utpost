@@ -7,7 +7,7 @@ import { toursRouter } from './routes/tours.js'
 import { photosRouter } from './routes/photos.js'
 import { mongo } from './db/mongo.js'
 import { postgresPool } from './db/postgres.js'
-import { yoga } from './graphql/server.ts'
+import { yoga } from './graphql/server.js'
 
 const app = express()
 
