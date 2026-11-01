@@ -22,10 +22,11 @@ docker compose up --build -d
 docker compose exec api npm run seed
 ```
 
-| Tjänst | URL                                |
-| ------ | ---------------------------------- |
-| Vue    | `http://localhost:8080`            |
-| API    | `http://localhost:4000/api/health` |
+| Tjänst  | URL                                |
+| ------- | ---------------------------------- |
+| Vue     | `http://127.0.0.1:3001`            |
+| API     | `http://127.0.0.1:3001/api/health` |
+| GraphQL | `http://127.0.0.1:3001/graphql`    |
 
 Stäng ner med `docker compose down`. `docker compose down -v` raderar även databaserna.
 
@@ -33,10 +34,10 @@ Stäng ner med `docker compose down`. `docker compose down -v` raderar även dat
 
 Efter att klienten byggdes om med en multi-stage Dockerfile och Nginx minskade imagen:
 
-| Mätning | Före | Efter |
-| --- | ---: | ---: |
-| Disk usage | 731 MB | 93,9 MB |
-| Content size | 180 MB | 26,4 MB |
+| Mätning      |   Före |   Efter |
+| ------------ | -----: | ------: |
+| Disk usage   | 731 MB | 73,9 MB |
+| Content size | 180 MB |   21 MB |
 
 Det motsvarar cirka 87 % mindre disk usage och 85 % mindre content size. Mätt med `docker image ls utpost-client`.
 
