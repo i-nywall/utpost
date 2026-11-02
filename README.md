@@ -135,3 +135,28 @@ Du behöver antingen:
 
 - **Docker Desktop** — grafiskt program för Windows/Mac, installera från [docker.com](https://www.docker.com/products/docker-desktop/).
 - **Docker Engine + docker compose** — CLI för Linux, om du hellre kör allt i terminalen.
+
+## Images
+
+CI-pipelinen bygger två Docker-images:
+
+- **API** – Express-applikationen.
+- **Client** – Vue-applikationen som serveras med Nginx.
+
+Images byggs automatiskt när en pull request skapas mot `main`. Vid pull requests byggs images, men publiceras inte.
+
+När ändringar pushas till `main` publiceras images till GitHub Container Registry (GHCR).
+
+Images får följande taggar:
+
+| Tagg           | Beskrivning                                     |
+| -------------- | ----------------------------------------------- |
+| `sha-<commit>` | Unik tagg kopplad till en specifik commit.      |
+| `latest`       | Senaste versionen från standardbranchen `main`. |
+
+Image-namn:
+
+- `ghcr.io/<owner>/<repo>-api:<tag>`
+- `ghcr.io/<owner>/<repo>-client:<tag>`
+
+Detta CI-flöde bygger och publicerar images, men distribuerar inte applikationen till någon server.
