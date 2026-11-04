@@ -34,8 +34,6 @@ services:
     environment:
       POSTGRES_URL: postgres://utpost:utpost@postgres:5432/utpost
       MONGO_URL: mongodb://mongo:27017/utpost
-    ports:
-      - "4000:4000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -47,7 +45,7 @@ services:
       context: .
       dockerfile: client/Dockerfile
     ports:
-      - "8080:80"
+      - "3001:80"
     depends_on:
       - api
 
