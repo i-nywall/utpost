@@ -36,7 +36,7 @@ export const typeDefs = /* Graphql */ `
     id: ID!
     title: String!
     startedAt: String!
-    disanceM: Int!
+    distanceM: Int!
     notes: String
     user: User!
     guide: Guide
@@ -51,5 +51,18 @@ export const typeDefs = /* Graphql */ `
     regions: [String!]!
     tours(limit: Int = 50): [Tour!]!
     tour(id: ID!): Tour
+  }
+
+  input CreateTourInput {
+    title: String!
+    guideId: ID
+    startedAt: String!
+    distanceM: Int!
+    notes: String
+  }
+
+  type Mutation {
+    "Kräver inloggning: Authorization: Bearer <token>"
+    createTour(input: CreateTourInput!): Tour!
   }
   `
