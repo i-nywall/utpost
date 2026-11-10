@@ -160,3 +160,10 @@ Image-namn:
 - `ghcr.io/<owner>/<repo>-client:<tag>`
 
 Detta CI-flöde bygger och publicerar images, men distribuerar inte applikationen till någon server.
+
+## Mätningar
+
+### N+1
+| Frågans namn | Före | Efter |
+| --- | ---- | ----- |
+| `query ToursWithUsers{tours {user{id}}}` | `[api] graphql ToursWithUsers: 51 databasfrågor` |   |
