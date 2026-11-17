@@ -92,3 +92,12 @@ export interface LoginResponse {
 export interface ApiError {
   error: string
 }
+
+export interface TourLogPoint {
+  timestamp: number
+  lat: number
+  lon: number
+  elevation_m: number | null
+  heart_rate: number | null
+  note: string | null
+}

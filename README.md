@@ -80,6 +80,7 @@ Vi har ett workflow som körs på alla pull requests till main, se [pipeline](./
 
 Verifiera att allt fungerar lokalt innan du pushar:
 
+
 ```bash
 npm run lint && \
 npm run typecheck && \
@@ -96,6 +97,21 @@ npm run format
 
 > [!NOTE]
 > Pipelinen kontrollerar bara Vue-porten just nu. Ändringar i React-appen kommer nekas oavsett. Undvik att ändra API:et innan pipelinen kontrollerar det också.
+
+### Migrering av turer och mätpunkter till MongoDB
+
+Migreringen läser turer och mätpunkter från Postgres och skriver ett MongoDB-dokument per tur. Postgres-data behålls för verifiering.
+
+Kör från repots rot i PowerShell:
+
+```powershell
+$env:MONGO_URL = 'mongodb://localhost:27017/utpost'
+npm run migrate:logs
+npm run migrate:logs
+
+bash/mac export MONGO_URL=mongodb://localhost:27017/utpost
+npm run migrate:logs
+npm run migrate:logs
 
 ## Struktur
 
