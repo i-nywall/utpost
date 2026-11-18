@@ -58,7 +58,7 @@ export const resolvers = {
   },
 
   LogPoint: {
-    recordedAt: (log) => iso(log.recorded_at),
+    recordedAt: (log) => iso(log.timestamp * 1000),
     elevationM: (log) => log.elevation_m,
     heartRate: (log) => log.heart_rate,
   },
@@ -74,8 +74,6 @@ export const resolvers = {
         : null,
     photos: async (tour, args, { query }) =>
       (await query('select * from photos where tour_id = $1', [tour.id])).rows,
-    logs: async (tour, args, { query }) =>
-      (await query('select * from tour_logs where tour_id = $1 order by recorded_at', [tour.id]))
-        .rows,
+    logs: async (tour, args, { loadTourLogs }) => loadTourLogs(tour.id),
   },
 }
