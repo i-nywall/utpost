@@ -5,6 +5,7 @@ import { config } from '../config.js'
 import { postgresPool } from '../db/postgres.js'
 import { typeDefs } from './schema.js'
 import { resolvers } from './resolvers.js'
+import { loadTourLogs } from '../db/mongo.js'
 
 const userFrom = (request) => {
   const header = request.headers.get('authorization')
@@ -34,6 +35,10 @@ export const yoga = createYoga({
     return {
       user: userFrom(request),
       stats,
+      loadTourLogs: (tourId) => {
+        stats.queries += 1
+        return loadTourLogs(tourId)
+      },
       query: (sql, params) => {
         stats.queries += 1
         return postgresPool.query(sql, params)
