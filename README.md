@@ -102,16 +102,31 @@ npm run format
 
 Migreringen läser turer och mätpunkter från Postgres och skriver ett MongoDB-dokument per tur. Postgres-data behålls för verifiering.
 
-Kör från repots rot i PowerShell:
 
-```powershell
-$env:MONGO_URL = 'mongodb://localhost:27017/utpost'
-npm run migrate:logs
-npm run migrate:logs
+Kör från repots rot:
 
-bash/mac export MONGO_URL=mongodb://localhost:27017/utpost
-npm run migrate:logs
-npm run migrate:logs
+```sh
+docker compose up --build -d postgres mongo api
+docker compose exec api npm run migrate:logs
+docker compose exec api npm run migrate:logs
+```
+
+Första körningen:
+
+```text
+Postgres: 200 turer, 5850 mätpunkter
+MongoDB: 200 nya dokument, 0 fanns redan
+Dokument i collectionen tours: 200
+```
+
+Andra körningen:
+
+```text
+Postgres: 200 turer, 5850 mätpunkter
+MongoDB: 0 nya dokument, 200 fanns redan
+Dokument i collectionen tours: 200
+```
+
 
 ## Struktur
 
