@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { postgresPool } from '../db/postgres.js'
 import { requireUser } from '../lib/auth.js'
+import { loadTourLogs, deleteTourDocument } from '../db/mongo.js'
 
 export const toursRouter = Router()
 
@@ -14,16 +15,14 @@ toursRouter.get('/', async (req, res) => {
       ? await postgresPool.query('select * from guides where id = $1', [tour.guide_id])
       : { rows: [] }
     const photos = await postgresPool.query('select * from photos where tour_id = $1', [tour.id])
-    const logs = await postgresPool.query(
-      'select * from tour_logs where tour_id = $1 order by recorded_at',
-      [tour.id],
-    )
+    const logs = await loadTourLogs(tour.id)
+
     out.push({
       ...tour,
       user: user.rows[0],
       guide: guide.rows[0] || null,
       photos: photos.rows,
-      logs: logs.rows,
+      logs,
     })
   }
 
@@ -38,14 +37,11 @@ toursRouter.get('/latest', async (req, res) => {
 toursRouter.get('/:id', async (req, res) => {
   const tour = await postgresPool.query('select * from tours where id = $1', [req.params.id])
   if (!tour.rows[0]) return res.status(404).json({ error: 'hittades inte' })
-  const logs = await postgresPool.query(
-    'select * from tour_logs where tour_id = $1 order by recorded_at',
-    [req.params.id],
-  )
+  const logs = await loadTourLogs(req.params.id)
   const photos = await postgresPool.query('select * from photos where tour_id = $1', [
     req.params.id,
   ])
-  res.json({ ...tour.rows[0], logs: logs.rows, photos: photos.rows })
+  res.json({ ...tour.rows[0], logs, photos: photos.rows })
 })
 
 toursRouter.post('/', requireUser, async (req, res) => {
@@ -59,6 +55,7 @@ toursRouter.post('/', requireUser, async (req, res) => {
 })
 
 toursRouter.delete('/:id', async (req, res) => {
+  await deleteTourDocument(req.params.id)
   await postgresPool.query('delete from tour_logs where tour_id = $1', [req.params.id])
   await postgresPool.query('delete from tours where id = $1', [req.params.id])
   res.json({ ok: true })

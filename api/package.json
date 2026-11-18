@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "mongo:smoke": "node src/db/mongo-smoke.ts",
     "format": "prettier --write src/",
-    "format:check": "prettier --check src/"
+    "format:check": "prettier --check src/",
+    "migrate:logs": "node src/db/migrate-logs.js"
   },
   "dependencies": {
     "@utpost/shared": "^0.1.0",

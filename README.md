@@ -80,6 +80,7 @@ Vi har ett workflow som körs på alla pull requests till main, se [pipeline](./
 
 Verifiera att allt fungerar lokalt innan du pushar:
 
+
 ```bash
 npm run lint && \
 npm run typecheck && \
@@ -96,6 +97,36 @@ npm run format
 
 > [!NOTE]
 > Pipelinen kontrollerar bara Vue-porten just nu. Ändringar i React-appen kommer nekas oavsett. Undvik att ändra API:et innan pipelinen kontrollerar det också.
+
+### Migrering av turer och mätpunkter till MongoDB
+
+Migreringen läser turer och mätpunkter från Postgres och skriver ett MongoDB-dokument per tur. Postgres-data behålls för verifiering.
+
+
+Kör från repots rot:
+
+```sh
+docker compose up --build -d postgres mongo api
+docker compose exec api npm run migrate:logs
+docker compose exec api npm run migrate:logs
+```
+
+Första körningen:
+
+```text
+Postgres: 200 turer, 5850 mätpunkter
+MongoDB: 200 nya dokument, 0 fanns redan
+Dokument i collectionen tours: 200
+```
+
+Andra körningen:
+
+```text
+Postgres: 200 turer, 5850 mätpunkter
+MongoDB: 0 nya dokument, 200 fanns redan
+Dokument i collectionen tours: 200
+```
+
 
 ## Struktur
 
