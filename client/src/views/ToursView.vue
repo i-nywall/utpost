@@ -1,10 +1,31 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { useGet } from '@/composables/fetch.js'
-import type { TourWithRelations } from '@utpost/shared'
+import { useQuery } from '@urql/vue'
+import { graphql } from '@/gql'
 import { formatKm } from '@/utils/format'
 
-const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
+// Bara fälten tabellen visar. REST-svaret /api/tours skickade med alla mätpunkter (logs)
+// för varje tur, ca 285 kB - här ber vi inte om dem alls.
+const ToursQuery = graphql(`
+  query Tours {
+    tours {
+      id
+      title
+      distanceM
+      user {
+        displayName
+      }
+      guide {
+        title
+      }
+      photos {
+        id
+      }
+    }
+  }
+`)
+
+const { data, fetching, error } = useQuery({ query: ToursQuery })
 </script>
 
 <template>
@@ -24,20 +45,20 @@ const { data, isLoading, error } = useGet<TourWithRelations[]>('/tours')
       </thead>
 
       <tbody>
-        <tr v-for="tour in data" :key="tour.id">
+        <tr v-for="tour in data.tours" :key="tour.id">
           <td>
             <RouterLink :to="{ name: 'TourDetail', params: { id: tour.id } }">
               {{ tour.title }}
             </RouterLink>
           </td>
-          <td>{{ tour.user?.display_name }}</td>
+          <td>{{ tour.user.displayName }}</td>
           <td>{{ tour.guide ? tour.guide.title : '-' }}</td>
-          <td>{{ formatKm(tour.distance_m) }} km</td>
+          <td>{{ formatKm(tour.distanceM) }} km</td>
           <td>{{ tour.photos.length }}</td>
         </tr>
       </tbody>
     </table>
-    <div v-else-if="isLoading">Laddar turer...</div>
+    <div v-else-if="fetching">Laddar turer...</div>
     <div v-else>Oops! Ett fel inträffade</div>
   </div>
 </template>
