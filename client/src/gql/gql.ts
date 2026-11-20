@@ -14,10 +14,10 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n      query PopularGuides {\n        popularGuides(limit: 6) {\n          id\n          slug\n          title\n          region\n          difficulty\n          length_km: lengthKm\n          body_html: bodyHtml\n          hero_image: heroImage\n          published\n          updated_at: updatedAt\n        }\n      }\n    ": typeof types.PopularGuidesDocument,
+    "\n  query PopularGuides {\n    popularGuides(limit: 6) {\n      id\n      slug\n      title\n      region\n      difficulty\n      length_km: lengthKm\n      body_html: bodyHtml\n      hero_image: heroImage\n      published\n      updated_at: updatedAt\n    }\n  }\n": typeof types.PopularGuidesDocument,
 };
 const documents: Documents = {
-    "\n      query PopularGuides {\n        popularGuides(limit: 6) {\n          id\n          slug\n          title\n          region\n          difficulty\n          length_km: lengthKm\n          body_html: bodyHtml\n          hero_image: heroImage\n          published\n          updated_at: updatedAt\n        }\n      }\n    ": types.PopularGuidesDocument,
+    "\n  query PopularGuides {\n    popularGuides(limit: 6) {\n      id\n      slug\n      title\n      region\n      difficulty\n      length_km: lengthKm\n      body_html: bodyHtml\n      hero_image: heroImage\n      published\n      updated_at: updatedAt\n    }\n  }\n": types.PopularGuidesDocument,
 };
 
 /**
@@ -37,7 +37,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n      query PopularGuides {\n        popularGuides(limit: 6) {\n          id\n          slug\n          title\n          region\n          difficulty\n          length_km: lengthKm\n          body_html: bodyHtml\n          hero_image: heroImage\n          published\n          updated_at: updatedAt\n        }\n      }\n    "): (typeof documents)["\n      query PopularGuides {\n        popularGuides(limit: 6) {\n          id\n          slug\n          title\n          region\n          difficulty\n          length_km: lengthKm\n          body_html: bodyHtml\n          hero_image: heroImage\n          published\n          updated_at: updatedAt\n        }\n      }\n    "];
+export function graphql(source: "\n  query PopularGuides {\n    popularGuides(limit: 6) {\n      id\n      slug\n      title\n      region\n      difficulty\n      length_km: lengthKm\n      body_html: bodyHtml\n      hero_image: heroImage\n      published\n      updated_at: updatedAt\n    }\n  }\n"): (typeof documents)["\n  query PopularGuides {\n    popularGuides(limit: 6) {\n      id\n      slug\n      title\n      region\n      difficulty\n      length_km: lengthKm\n      body_html: bodyHtml\n      hero_image: heroImage\n      published\n      updated_at: updatedAt\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
