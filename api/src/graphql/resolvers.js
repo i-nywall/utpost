@@ -66,16 +66,9 @@ export const resolvers = {
   Tour: {
     startedAt: (tour) => iso(tour.started_at),
     distanceM: (tour) => tour.distance_m,
-    user: async (tour, args, { query }) =>
-      (await query('select * from users where id = $1', [tour.user_id])).rows[0],
-    guide: async (tour, args, { query }) =>
-      tour.guide_id
-        ? (await query('select * from guides where id = $1', [tour.guide_id])).rows[0]
-        : null,
-    photos: async (tour, args, { query }) =>
-      (await query('select * from photos where tour_id = $1', [tour.id])).rows,
-    logs: async (tour, args, { query }) =>
-      (await query('select * from tour_logs where tour_id = $1 order by recorded_at', [tour.id]))
-        .rows,
+    user: (tour, args, { loaders }) => loaders.user.load(tour.user_id),
+    guide: (tour, args, { loaders }) => (tour.guide_id ? loaders.guide.load(tour.guide_id) : null),
+    photos: (tour, args, { loaders }) => loaders.photos.load(tour.id),
+    logs: (tour, args, { loaders }) => loaders.logs.load(tour.id),
   },
 }
