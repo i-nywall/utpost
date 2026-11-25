@@ -1,5 +1,9 @@
 import { globalIgnores } from 'eslint/config'
-import { defineConfigWithVueTs, vueTsConfigs, configureVueProject } from '@vue/eslint-config-typescript'
+import {
+  defineConfigWithVueTs,
+  vueTsConfigs,
+  configureVueProject,
+} from '@vue/eslint-config-typescript'
 import pluginVue from 'eslint-plugin-vue'
 import pluginVitest from '@vitest/eslint-plugin'
 import skipFormatting from 'eslint-config-prettier/flat'
@@ -12,8 +16,7 @@ export default defineConfigWithVueTs(
     files: ['**/*.{vue,js,ts,mts}'],
   },
 
-  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
+  globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**', 'src/gql/**']),
   ...pluginVue.configs['flat/essential'],
   vueTsConfigs.recommended,
 

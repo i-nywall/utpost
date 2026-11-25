@@ -13,20 +13,25 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write src/",
-    "format:check": "prettier --check src/"
+    "format:check": "prettier --check src/",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/user-event": "^14.6.7",
     "@testing-library/vue": "^8.1.0",
+    "@urql/vue": "^2.1.1",
     "@utpost/shared": "*",
     "dompurify": "^3.4.16",
+    "graphql": "^17.1.0",
     "pinia": "^4.0.3",
     "vue": "^3.5.43",
     "vue-router": "^5.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@graphql-codegen/cli": "^8.0.0",
+    "@graphql-codegen/client-preset": "^7.0.0",
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitest/eslint-plugin": "^1.6.23",
     "@vue/eslint-config-typescript": "^14.9.0",
