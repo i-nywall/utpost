@@ -11,7 +11,8 @@
     "mongo:smoke": "node src/db/mongo-smoke.ts",
     "format": "prettier --write src/",
     "format:check": "prettier --check src/",
-    "migrate:logs": "node src/db/migrate-logs.js"
+    "migrate:logs": "node src/db/migrate-logs.js",
+    "test": "vitest run"
   },
   "dependencies": {
     "@utpost/shared": "^0.1.0",
@@ -32,6 +33,7 @@
     "@types/node": "^22.20.4",
     "@types/pg": "^8.23.1",
     "prettier": "^3.9.10",
-    "typescript": "~6.0.0"
+    "typescript": "~6.0.0",
+    "vitest": "^5.1.2"
   }
 }

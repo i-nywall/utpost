@@ -20,6 +20,7 @@
     "format": "npm run format --workspace=client && npm run format --workspace=api",
     "format:check": "npm run format:check --workspace=client && npm run format:check --workspace=api",
     "test": "npm run test --workspace=client",
+    "test:api": "npm run test --workspace=api",
     "build": "npm run build --workspace=client",
     "migrate:logs": "npm run migrate:logs --workspace=api"
   },
