@@ -58,7 +58,8 @@ export const resolvers = {
   },
 
   LogPoint: {
-    recordedAt: (log) => iso(log.recorded_at),
+    // I MongoDB sparas tiden som `timestamp` i sekunder (migrate-logs.js), inte recorded_at.
+    recordedAt: (log) => iso(log.timestamp * 1000),
     elevationM: (log) => log.elevation_m,
     heartRate: (log) => log.heart_rate,
   },
