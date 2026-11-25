@@ -1,44 +1,33 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+import { ref } from 'vue'
 import { render, screen } from '@testing-library/vue'
-import type { TourWithRelations } from '@utpost/shared'
+import { useQuery } from '@urql/vue'
+import type { ToursQuery } from '@/gql/graphql'
 import ToursView from './ToursView.vue'
-import { get } from '../lib/api.ts'
 
-vi.mock('../lib/api', () => ({ get: vi.fn() }))
-const mockedGet = vi.mocked(get)
+// Vi mockar urql: useQuery skickar ingen fråga, utan ger tillbaka det tillstånd testet bestämmer.
+vi.mock('@urql/vue', () => ({ useQuery: vi.fn() }))
+const mockedUseQuery = vi.mocked(useQuery)
 
-const tour = (overrides: Partial<TourWithRelations>): TourWithRelations => ({
-  id: 1,
-  user_id: 1,
-  guide_id: 1,
+type TourItem = ToursQuery['tours'][number]
+
+// Typen kommer från codegen – samma form som frågan i ToursView, inget handskrivet.
+const tour = (overrides: Partial<TourItem> = {}): TourItem => ({
+  id: '1',
   title: 'Everest Expedition',
-  started_at: '2026-09-01T10:00:00.000Z',
-  distance_m: 20000,
-  notes: null,
-  user: {
-    id: 1,
-    email: 'test@example.com',
-    display_name: 'Adrian',
-    role: 'member',
-    created_at: '2026-08-01T00:00:00.000Z',
-  },
-  guide: {
-    id: 1,
-    slug: 'mounteverest',
-    title: 'Mount Everest',
-    region: 'Himalayas',
-    difficulty: 'svår',
-    length_km: 18,
-    body_html: '<p>Mount Everest</p>',
-    hero_image: null,
-    published: true,
-    author_id: 1,
-    updated_at: '2026-09-01T00:00:00.000Z',
-  },
+  distanceM: 20000,
+  user: { displayName: 'Adrian' },
+  guide: { title: 'Mount Everest' },
   photos: [],
-  logs: [],
   ...overrides,
 })
+
+const mockQuery = (state: { data?: ToursQuery; fetching?: boolean; error?: Error }) =>
+  mockedUseQuery.mockReturnValue({
+    data: ref(state.data),
+    fetching: ref(state.fetching ?? false),
+    error: ref(state.error),
+  } as unknown as ReturnType<typeof useQuery>)
 
 const renderView = () =>
   render(ToursView, {
@@ -52,17 +41,9 @@ const renderView = () =>
   })
 
 describe('ToursView', () => {
-  beforeEach(() => {
-    mockedGet.mockResolvedValue([
-      tour({
-        id: 1,
-        title: 'Everest Expedition',
-        distance_m: 20000,
-      }),
-    ])
-  })
-
   it('shows tour data from the API', async () => {
+    mockQuery({ data: { tours: [tour()] } })
+
     renderView()
 
     expect(await screen.findByText('Everest Expedition')).toBeInTheDocument()
@@ -72,12 +53,7 @@ describe('ToursView', () => {
   })
 
   it('shows a dash when a tour has no guide', async () => {
-    mockedGet.mockResolvedValue([
-      tour({
-        guide_id: null,
-        guide: null,
-      }),
-    ])
+    mockQuery({ data: { tours: [tour({ guide: null })] } })
 
     renderView()
 
@@ -85,16 +61,16 @@ describe('ToursView', () => {
     expect(screen.getByText('-')).toBeInTheDocument()
   })
 
-  it('shows loading state while the API request is pending', () => {
-    mockedGet.mockReturnValue(new Promise(() => {}))
+  it('shows loading state while the query is pending', () => {
+    mockQuery({ fetching: true })
 
     renderView()
 
     expect(screen.getByText('Laddar turer...')).toBeInTheDocument()
   })
 
-  it('shows an error when API fails', async () => {
-    mockedGet.mockRejectedValue(new Error('API error'))
+  it('shows an error when the query fails', async () => {
+    mockQuery({ error: new Error('API error') })
 
     renderView()
 

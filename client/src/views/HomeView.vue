@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useQuery } from '@urql/vue'
 import GuideCard from '@/components/GuideCard.vue'
 import { useGet } from '@/composables/fetch.js'
-import { graphql } from '@/lib/graphql'
+import { graphql } from '@/gql'
 import { formatKm } from '@/utils/format'
 import type { Guide, Tour } from '@utpost/shared'
 
@@ -10,41 +10,30 @@ const guidesAll = useGet<Guide[]>('/guides')
 const guidesRegions = useGet<Guide['region'][]>('/guides/regions')
 const toursLatest = useGet<Tour[]>('/tours/latest')
 
-const guidesPopular = ref<Guide[] | null>(null)
-const guidesPopularLoading = ref(true)
-const guidesPopularError = ref<Error | null>(null)
-
-async function loadPopularGuides() {
-  guidesPopularLoading.value = true
-  guidesPopularError.value = null
-
-  try {
-    const result = await graphql<{ popularGuides: Guide[] }>(`
-      query PopularGuides {
-        popularGuides(limit: 6) {
-          id
-          slug
-          title
-          region
-          difficulty
-          length_km: lengthKm
-          body_html: bodyHtml
-          hero_image: heroImage
-          published
-          updated_at: updatedAt
-        }
-      }
-    `)
-
-    guidesPopular.value = result.popularGuides
-  } catch (error) {
-    guidesPopularError.value = error instanceof Error ? error : new Error('Okänt fel')
-  } finally {
-    guidesPopularLoading.value = false
+// Frågan skrivs med graphql() från codegen – typen för svaret genereras ur schemat,
+// ingen handskriven typ som kan glida isär från frågan.
+const PopularGuidesQuery = graphql(`
+  query PopularGuides {
+    popularGuides(limit: 6) {
+      id
+      slug
+      title
+      region
+      difficulty
+      length_km: lengthKm
+      body_html: bodyHtml
+      hero_image: heroImage
+      published
+      updated_at: updatedAt
+    }
   }
-}
+`)
 
-void loadPopularGuides()
+const {
+  data: popularData,
+  fetching: popularFetching,
+  error: popularError,
+} = useQuery({ query: PopularGuidesQuery })
 </script>
 
 <template>
@@ -58,12 +47,12 @@ void loadPopularGuides()
     </section>
 
     <h2>Populärast just nu</h2>
-    <p v-if="guidesPopularLoading">Loading...</p>
-    <p v-else-if="guidesPopularError" role="alert">
-      Oops! Ett fel inträffade: {{ guidesPopularError.message }}
+    <p v-if="popularFetching">Loading...</p>
+    <p v-else-if="popularError" role="alert">
+      Oops! Ett fel inträffade: {{ popularError.message }}
     </p>
-    <div v-else-if="guidesPopular" class="grid">
-      <GuideCard v-for="guide in guidesPopular" :key="guide.id" :guide="guide" />
+    <div v-else-if="popularData" class="grid">
+      <GuideCard v-for="guide in popularData.popularGuides" :key="guide.id" :guide="guide" />
     </div>
 
     <h2>Senaste turerna</h2>
