@@ -26,7 +26,7 @@ afterAll(async () => {
 
 describe('GraphQL-API:et mot riktig databas', () => {
   it('turlistan: 50 turer med vem som gick – för två databasfrågor, inte 51', async () => {
-    const { data, errors } = await graphql(/* GraphQL */ `
+    const { data, errors, extensions } = await graphql(/* GraphQL */ `
       query Turer {
         tours {
           id
@@ -40,6 +40,8 @@ describe('GraphQL-API:et mot riktig databas', () => {
     expect(errors).toBeUndefined()
     expect(data.tours).toHaveLength(50)
     for (const tour of data.tours) expect(tour.user.displayName).toEqual(expect.any(String))
+    // Regressionstest för N+1: med DataLoader är det två frågor (turerna + alla användare på en gång).
+    expect(extensions.databasfragor).toBeLessThanOrEqual(2)
   })
 
   it('guide(slug) som inte finns är null – inte ett fel', async () => {
