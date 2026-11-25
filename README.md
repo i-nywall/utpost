@@ -80,7 +80,6 @@ Vi har ett workflow som körs på alla pull requests till main, se [pipeline](./
 
 Verifiera att allt fungerar lokalt innan du pushar:
 
-
 ```bash
 npm run lint && \
 npm run typecheck && \
@@ -101,7 +100,6 @@ npm run format
 ### Migrering av turer och mätpunkter till MongoDB
 
 Migreringen läser turer och mätpunkter från Postgres och skriver ett MongoDB-dokument per tur. Postgres-data behålls för verifiering.
-
 
 Kör från repots rot:
 
@@ -126,7 +124,6 @@ Postgres: 200 turer, 5850 mätpunkter
 MongoDB: 0 nya dokument, 200 fanns redan
 Dokument i collectionen tours: 200
 ```
-
 
 ## Struktur
 
@@ -195,6 +192,11 @@ Detta CI-flöde bygger och publicerar images, men distribuerar inte applikatione
 ## Mätningar
 
 ### N+1
-| Frågans namn | Före | Efter |
-| --- | ---- | ----- |
-| `query ToursWithUsers{tours {user{id}}}` | `[api] graphql ToursWithUsers: 51 databasfrågor` |   |
+
+| Frågans namn                             | Före                                             | Efter                                  |
+| ---------------------------------------- | ------------------------------------------------ | -------------------------------------- |
+| `query ToursWithUsers{tours {user{id}}}` | `[api] graphql ToursWithUsers: 51 databasfrågor` | `[api] graphql Turer: 2 databasfrågor` |
+
+Efter: DataLoader i `Tour.user` (#126). Mätt 2026-11-25 med `query Turer { tours { id title user { displayName } } }`.
+
+Bevisat av ett test: första testet i `api/src/graphql/server.test.js` kräver högst 2 databasfrågor. Med M4:s resolver tillbaka (en fråga per tur) blir det rött: `AssertionError: expected 51 to be less than or equal to 2`.
