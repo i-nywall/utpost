@@ -102,7 +102,6 @@ npm run format
 
 Migreringen läser turer och mätpunkter från Postgres och skriver ett MongoDB-dokument per tur. Postgres-data behålls för verifiering.
 
-
 Kör från repots rot:
 
 ```sh
@@ -111,11 +110,13 @@ docker compose exec api npm run migrate:logs
 docker compose exec api npm run migrate:logs
 ```
 
+Dokumenten fanns redan i MongoDB före den första körningen.
+
 Första körningen:
 
 ```text
 Postgres: 200 turer, 5850 mätpunkter
-MongoDB: 200 nya dokument, 0 fanns redan
+MongoDB: 0 nya dokument, 200 fanns redan
 Dokument i collectionen tours: 200
 ```
 
