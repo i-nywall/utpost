@@ -13,6 +13,7 @@ Vi har ont om tid och ligger redan efter vilket betyder att vi inte kan tvinga a
 Enhet (Vitest): krav, enkel logik test, utils funktioner etc, det som kan testas utan vue och DOM, snabbt och enkelt.
 Komponent (Vitest + Vue Testing Library): valfritt, tas när det är värt det.
 Integration (Vitest i `api/`): GraphQL-API:et hela vägen – fråga, schema, resolvers, riktig Postgres och MongoDB. Inga mockar. Körs med `npm run test:api`.
+I pipelinen körs de i jobbet `integration`, mot Postgres och Mongo som services.
 
 ## Karta: vad testas var
 
