@@ -6,6 +6,13 @@
         "onlyCategories": ["performance"],
         "chromeFlags": "--headless=new --no-sandbox"
       }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["warn", { "minScore": 0.7 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 4000 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.25 }]
+      }
     }
   }
 }
