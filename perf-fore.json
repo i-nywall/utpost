@@ -14,10 +14,10 @@
     "total": 167
   },
   "En tur": {
-    "lcp": 2.8,
-    "cls": 0.43,
-    "js": 163,
+    "lcp": 0.8,
+    "cls": 0,
+    "js": 132,
     "images": 0,
-    "total": 202
+    "total": 152
   }
 }

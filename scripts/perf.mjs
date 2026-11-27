@@ -57,10 +57,10 @@ let pages
 try {
   await waitForApi()
   pages = [
-    { name: 'Startsidan', path: '/' },
-    { name: 'En guide', path: `/guider/${await firstGuideSlug()}` },
-    { name: 'En tur', path: '/turer/1' },
-  ]
+  { name: 'Startsidan', path: '/' },
+  { name: 'En guide', path: `/guider/${await firstGuideSlug()}` },
+  { name: 'En tur', path: '/turer' },
+]
 } catch (err) {
   console.error(`Kan inte mäta ${BASE}: ${err.cause?.code ?? err.message}`)
   console.error('Kör appen? Starta den med  docker compose up -d --build --wait  och försök igen.')

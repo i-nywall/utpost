@@ -10,7 +10,7 @@
 |---|---|---|---|---|---|
 | Startsidan | 2,8 s | 0,43 | 163 kB | 0 kB | 202 kB |
 | En guide | 0,8 s | 0 | 158 kB | 0 kB | 167 kB |
-| En tur | 2,8 s | 0,43 | 163 kB | 0 kB | 202 kB |
+| En tur | 0,8 s | 0 | 132 kB | 0 kB | 152 kB |
 
 **Vad som är LCP-elementet på startsidan:** `h1`
 
@@ -24,7 +24,7 @@
 | 2 | | | | | |
 | 3 | | | | | |
 
-*Före-värdet är en körning. Efter-värdet är medianen av tre körningar.*
+*Startsidan och guiden mättes i en körning. En tur mättes i medianen av tre körningar efter att adressen rättades. En senare körning med samma kod gav 0,47 CLS på startsidan, så resultatet 0,10 behöver verifieras.*
 
 ## Efter
 
