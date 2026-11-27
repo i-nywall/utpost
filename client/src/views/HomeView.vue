@@ -22,9 +22,6 @@ const PopularGuidesQuery = graphql(`
       difficulty
       length_km: lengthKm
       body_html: bodyHtml
-      hero_image: heroImage
-      published
-      updated_at: updatedAt
     }
   }
 `)
