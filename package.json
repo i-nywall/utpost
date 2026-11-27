@@ -21,7 +21,8 @@
     "format:check": "npm run format:check --workspace=client && npm run format:check --workspace=api",
     "test": "npm run test --workspace=client",
     "build": "npm run build --workspace=client",
-    "migrate:logs": "npm run migrate:logs --workspace=api"
+    "migrate:logs": "npm run migrate:logs --workspace=api",
+    "perf": "node scripts/perf.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
