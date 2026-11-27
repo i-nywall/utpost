@@ -56,7 +56,9 @@ const {
     </div>
 
     <h2>Senaste turerna</h2>
-    <p v-if="toursLatest.isLoading.value">Loading...</p>
+    <ul v-if="toursLatest.isLoading.value" class="list" aria-hidden="true">
+      <li v-for="n in 5" :key="n" class="tour-skeleton"></li>
+    </ul>
     <p v-else-if="toursLatest.error.value" role="alert">
       Oops! Ett fel inträffade: {{ toursLatest.error.value.message }}
     </p>

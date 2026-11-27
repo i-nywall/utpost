@@ -21,7 +21,7 @@
 | # | Vad vi ändrade | Siffran vi ville flytta | Före | Efter | PR |
 |---|---|---|---|---|---|
 | 1 | Visade platshållarkort medan guiderna laddas | CLS på startsidan | 0,43 | 0,10 | |
-| 2 | | | | | |
+| 2 | Visade platshållarrader medan senaste turerna laddas | CLS på startsidan | 0,47 | 0,14 | |
 | 3 | | | | | |
 
 *Startsidan och guiden mättes i en körning. En tur mättes i medianen av tre körningar efter att adressen rättades. En senare körning med samma kod gav 0,47 CLS på startsidan, så resultatet 0,10 behöver verifieras.*

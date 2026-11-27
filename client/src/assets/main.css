@@ -132,6 +132,9 @@ main {
 .list li:last-child {
   border-bottom: 0;
 }
+.list li.tour-skeleton {
+  height: 42px;
+}
 
 .tours {
   width: 100%;
