@@ -59,13 +59,49 @@ const run = async () => {
       ? await collection.bulkWrite(operations, { ordered: true })
       : { upsertedCount: 0 }
 
-    const documentCount = await collection.countDocuments()
+    const [migrationStats] = await collection
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            documentCount: { $sum: 1 },
+            logPointCount: {
+              $sum: {
+                $size: {
+                  $ifNull: ['$logs', []],
+                },
+              },
+            },
+          },
+        },
+      ])
+      .toArray()
+
+    const documentCount = migrationStats?.documentCount ?? 0
+    const migratedLogPoints = migrationStats?.logPointCount ?? 0
 
     console.log(`Postgres: ${tours.length} turer, ${logs.length} mätpunkter`)
     console.log(
       `MongoDB: ${result.upsertedCount} nya dokument, ${tours.length - result.upsertedCount} fanns redan`,
     )
     console.log(`Dokument i collectionen tours: ${documentCount}`)
+    console.log(`Mätpunkter i MongoDB: ${migratedLogPoints}`)
+
+    if (documentCount !== tours.length) {
+      throw new Error(
+        `Tour count mismatch: PostgreSQL has ${tours.length} tours, ` +
+          `but MongoDB has ${documentCount} documents.`,
+      )
+    }
+
+    if (migratedLogPoints !== logs.length) {
+      throw new Error(
+        `Log count mismatch: PostgreSQL has ${logs.length} log points, ` +
+          `but MongoDB has ${migratedLogPoints} log points.`,
+      )
+    }
+
+    console.log('Migration verification passed.')
   } finally {
     if (mongoConnected) await mongo.close()
     await postgresPool.end()
