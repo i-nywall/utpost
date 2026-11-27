@@ -58,7 +58,7 @@ try {
   await waitForApi()
   pages = [
     { name: 'Startsidan', path: '/' },
-    { name: 'En guide', path: `/guides/${await firstGuideSlug()}` },
+    { name: 'En guide', path: `/guider/${await firstGuideSlug()}` },
     { name: 'En tur', path: '/turer/1' },
   ]
 } catch (err) {

@@ -1,7 +1,7 @@
 {
   "Startsidan": {
-    "lcp": 2.2,
-    "cls": 0.2,
+    "lcp": 2.8,
+    "cls": 0.43,
     "js": 163,
     "images": 0,
     "total": 202
@@ -9,9 +9,9 @@
   "En guide": {
     "lcp": 0.8,
     "cls": 0,
-    "js": 128,
+    "js": 158,
     "images": 0,
-    "total": 136
+    "total": 167
   },
   "En tur": {
     "lcp": 2.8,

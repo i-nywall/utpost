@@ -8,8 +8,8 @@
 
 | Sida | LCP | CLS | JavaScript | Bilder | Totalt |
 |---|---|---|---|---|---|
-| Startsidan | 2,2 s | 0,2 | 163 kB | 0 kB | 202 kB |
-| En guide | 0,8 s | 0 | 128 kB | 0 kB | 136 kB |
+| Startsidan | 2,8 s | 0,43 | 163 kB | 0 kB | 202 kB |
+| En guide | 0,8 s | 0 | 158 kB | 0 kB | 167 kB |
 | En tur | 2,8 s | 0,43 | 163 kB | 0 kB | 202 kB |
 
 **Vad som är LCP-elementet på startsidan:** `h1`
