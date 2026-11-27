@@ -83,6 +83,9 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 18px;
 }
+.guide-skeleton {
+  min-height: 220px;
+}
 .card {
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);

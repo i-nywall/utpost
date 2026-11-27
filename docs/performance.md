@@ -20,9 +20,11 @@
 
 | # | Vad vi ändrade | Siffran vi ville flytta | Före | Efter | PR |
 |---|---|---|---|---|---|
-| 1 | | | | | |
+| 1 | Visade platshållarkort medan guiderna laddas | CLS på startsidan | 0,43 | 0,10 | |
 | 2 | | | | | |
 | 3 | | | | | |
+
+*Före-värdet är en körning. Efter-värdet är medianen av tre körningar.*
 
 ## Efter
 

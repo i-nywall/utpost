@@ -72,7 +72,9 @@ const {
     </ul>
 
     <h2>Alla guider</h2>
-    <p v-if="guidesAll.isLoading.value">Loading...</p>
+    <div v-if="guidesAll.isLoading.value" class="grid" aria-hidden="true">
+      <div v-for="n in 40" :key="n" class="card guide-skeleton"></div>
+    </div>
     <p v-else-if="guidesAll.error.value" role="alert">
       Oops! Ett fel inträffade: {{ guidesAll.error.value.message }}
     </p>
